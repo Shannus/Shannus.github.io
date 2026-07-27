@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shanmugam Sundar | Platform &amp; Cloud Engineer</title>
+<meta name="description" content="Platform &amp; Cloud Engineer specializing in Kubernetes, AWS, and GitOps for trading infrastructure." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2310141B'/><text x='50' y='68' font-size='52' font-family='monospace' font-weight='700' fill='%23E3A83E' text-anchor='middle'>S</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #10141b;
+    --surface: #171d27;
+    --surface-2: #1e2631;
+    --border: #2a3441;
+    --border-soft: rgba(42, 52, 65, 0.55);
+    --text: #e9edf2;
+    --text-muted: #93a0af;
+    --text-faint: #5c6675;
+    --accent: #e3a83e;
+    --accent-strong: #f0b94f;
+    --accent-soft: rgba(227, 168, 62, 0.12);
+    --status-green: #4ade9c;
+    --status-green-soft: rgba(74, 222, 156, 0.12);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'IBM Plex Sans', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --container: 1120px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(var(--border-soft) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  a { color: inherit; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; margin: 0; }
+  p { margin: 0; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  main, .footer { position: relative; z-index: 1; }
+
+  .section { padding: 6rem 1.5rem; }
+  .section-alt { background: var(--surface); }
+  .section-inner { max-width: var(--container); margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-bottom: 2.5rem; letter-spacing: -0.01em; }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(16,20,27,0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav-inner {
+    max-width: var(--container); margin: 0 auto; padding: 0.9rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .mark {
+    width: 34px; height: 34px; border-radius: 8px;
+    background: var(--surface-2); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-weight: 600; color: var(--accent); font-size: 0.8rem;
+  }
+  .nav-name { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; color: var(--text); }
+  .nav-links { display: flex; align-items: center; gap: 1.75rem; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-muted); font-size: 0.9rem;
+    border-bottom: 2px solid transparent; padding-bottom: 4px;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--text); border-bottom-color: var(--accent); }
+  .nav-links a.nav-cta {
+    color: #14181f; background: var(--accent); padding: 0.5rem 1rem; border-radius: 6px;
+    font-weight: 500; border-bottom: none;
+  }
+  .nav-links a.nav-cta:hover { background: var(--accent-strong); color: #14181f; }
+  .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle span { width: 20px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s ease, opacity .2s ease; }
+
+  /* Hero */
+  .hero {
+    padding: 9rem 1.5rem 4rem;
+    max-width: var(--container); margin: 0 auto;
+    display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 4rem; align-items: center;
+  }
+  .eyebrow {
+    font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--accent); font-size: 0.8rem; margin-bottom: 1rem;
+  }
+  .hero h1 { font-size: clamp(2.5rem, 6vw, 3.75rem); letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .hero-thesis { font-size: 1.05rem; color: var(--text-muted); max-width: 32rem; margin-bottom: 2rem; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.4rem; border-radius: 8px;
+    font-size: 0.92rem; font-weight: 500; text-decoration: none; border: 1px solid transparent; transition: all .2s ease;
+  }
+  .btn-primary { background: var(--accent); color: #14181f; }
+  .btn-primary:hover { background: var(--accent-strong); transform: translateY(-2px); }
+  .btn-ghost { border-color: var(--border); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Status panel */
+  .status-panel {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem;
+    box-shadow: 0 30px 70px -30px rgba(0,0,0,0.55);
+  }
+  .status-panel-head {
+    display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+  }
+  .status-title { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); flex: 1; }
+  .status-all {
+    font-family: var(--font-mono); font-size: 0.68rem; color: var(--status-green); background: var(--status-green-soft);
+    padding: 0.25rem 0.6rem; border-radius: 5px; letter-spacing: 0.03em;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+  .dot-green { background: var(--status-green); }
+  .dot.pulse { animation: pulse 2s infinite; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(74,222,156,0.55); }
+    70% { box-shadow: 0 0 0 8px rgba(74,222,156,0); }
+    100% { box-shadow: 0 0 0 0 rgba(74,222,156,0); }
+  }
+  .status-list { display: flex; flex-direction: column; gap: 0.85rem; }
+  .status-list li {
+    display: flex; align-items: center; gap: 0.65rem; font-size: 0.88rem; color: var(--text);
+    opacity: 0; transform: translateX(-10px);
+    animation: rowIn .5s ease forwards;
+    animation-delay: calc(var(--row) * 0.15s + 0.2s);
+  }
+  .status-tag {
+    margin-left: auto; font-family: var(--font-mono); font-size: 0.65rem; color: var(--status-green);
+    background: var(--status-green-soft); padding: 0.2rem 0.5rem; border-radius: 4px; letter-spacing: 0.03em;
+  }
+  @keyframes rowIn { to { opacity: 1; transform: translateX(0); } }
+
+  /* Stat strip */
+  .stat-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+  .stat-strip-inner { max-width: var(--container); margin: 0 auto; padding: 2.25rem 1.5rem; display: flex; flex-wrap: wrap; gap: 2rem; }
+  .stat { flex: 1; min-width: 180px; padding-left: 1.5rem; border-left: 1px solid var(--border); }
+  .stat:first-child { padding-left: 0; border-left: none; }
+  .stat-num { display: block; font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--accent); }
+  .stat-label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+
+  /* About */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .about-grid p { color: var(--text-muted); font-size: 1rem; }
+
+  /* Timeline */
+  .timeline { border-left: 2px solid var(--border); margin-left: 6px; }
+  .timeline-item { position: relative; padding: 0 0 3.25rem 2rem; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-marker {
+    position: absolute; left: -7px; top: 0.35rem; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 4px var(--bg);
+  }
+  .timeline-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.75rem; margin-bottom: 0.35rem; }
+  .timeline-content h3 { font-size: 1.3rem; }
+  .timeline-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-faint); }
+  .timeline-org { color: var(--accent); font-size: 0.92rem; margin-bottom: 1rem; display: block; }
+  .timeline-bullets { display: flex; flex-direction: column; gap: 0.6rem; }
+  .timeline-bullets li { position: relative; padding-left: 1.1rem; color: var(--text-muted); font-size: 0.94rem; }
+  .timeline-bullets li::before { content: '-'; position: absolute; left: 0; color: var(--text-faint); }
+
+  /* Projects */
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .project-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .project-tags span {
+    font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.03em; text-transform: uppercase;
+    background: var(--accent-soft); color: var(--accent); padding: 0.25rem 0.55rem; border-radius: 5px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .project-card h3 { font-size: 1.1rem; margin-bottom: 0.65rem; }
+  .project-card p { color: var(--text-muted); font-size: 0.92rem; }
+
+  /* Skills */
+  .skills-hint {
+    font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-faint);
+    margin-top: -1.75rem; margin-bottom: 2.25rem;
+  }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 2rem 2.5rem; }
+  .skill-group h4 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted);
+    margin-bottom: 0.9rem; font-weight: 600;
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag-row span {
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--text); background: var(--surface-2);
+    border: 1px solid var(--border); padding: 0.35rem 0.7rem; border-radius: 6px;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+
+  /* Hover / tap tooltips, shared by skill tags and project tags */
+  [data-tip] { position: relative; cursor: help; }
+  .tag-row [data-tip]:hover,
+  .tag-row [data-tip].tip-active,
+  .tag-row [data-tip]:focus-visible {
+    background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+  }
+  .project-tags [data-tip]:hover,
+  .project-tags [data-tip].tip-active,
+  .project-tags [data-tip]:focus-visible {
+    background: var(--accent); color: #14181f;
+  }
+  [data-tip]::after {
+    content: attr(data-tip);
+    position: absolute; bottom: calc(100% + 11px); left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--surface-2); border: 1px solid var(--accent); color: var(--text);
+    font-family: var(--font-body); font-size: 0.78rem; font-weight: 400;
+    text-transform: none; letter-spacing: normal; line-height: 1.5; text-align: left;
+    padding: 0.65rem 0.85rem; border-radius: 8px;
+    width: max-content; max-width: 240px;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.5);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .18s ease, transform .18s ease;
+    z-index: 60;
+  }
+  [data-tip]::before {
+    content: ''; position: absolute; bottom: calc(100% + 5px); left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: var(--accent);
+    opacity: 0; visibility: hidden; transition: opacity .18s ease; z-index: 60;
+  }
+  [data-tip]:hover::after, [data-tip]:hover::before,
+  [data-tip]:focus-visible::after, [data-tip]:focus-visible::before,
+  [data-tip].tip-active::after, [data-tip].tip-active::before {
+    opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+  }
+
+  /* Education */
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
+  .edu-card h4 {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent);
+    margin-bottom: 0.9rem; font-weight: 600;
+  }
+  .edu-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .edu-card p { color: var(--text-muted); font-size: 0.92rem; }
+  .edu-note { color: var(--text-faint) !important; font-size: 0.85rem !important; margin-top: 0.3rem; }
+  .cert-list li { color: var(--text-muted); font-size: 0.92rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); }
+  .cert-list li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  /* Contact */
+  .contact-inner p { color: var(--text-muted); max-width: 36rem; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .contact-links a {
+    display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--text);
+    border: 1px solid var(--border); padding: 0.7rem 1.2rem; border-radius: 8px; font-size: 0.9rem;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Footer */
+  .footer { padding: 2rem 1.5rem; }
+  .footer-inner {
+    max-width: var(--container); margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-faint);
+  }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .edu-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .nav-links {
+      position: fixed; top: 60px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border);
+      flex-direction: column; align-items: flex-start; padding: 1.5rem; gap: 1.25rem;
+      transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+    }
+    .nav-links.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-toggle { display: flex; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+  @media (max-width: 600px) {
+    .section { padding: 4rem 1.25rem; }
+    .stat { min-width: 140px; }
+    .timeline-item { padding-left: 1.5rem; }
+    [data-tip]::after { max-width: 180px; font-size: 0.74rem; padding: 0.55rem 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand">
+      <span class="mark">SS</span>
+      <span class="nav-name">Shanmugam Sundar</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section id="hero" class="hero">
+    <div class="hero-copy reveal">
+      <p class="eyebrow">Platform &amp; Cloud Engineer</p>
+      <h1>Shanmugam Sundar</h1>
+      <p class="hero-thesis">I build and operate the Kubernetes and AWS infrastructure behind a live trading platform, bringing a data engineer's eye for pipelines to a platform engineer's obsession with reliability.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="status-panel reveal">
+      <div class="status-panel-head">
+        <span class="dot dot-green pulse"></span>
+        <span class="status-title">SYSTEM STATUS</span>
+        <span class="status-all">ALL OPERATIONAL</span>
+      </div>
+      <ul class="status-list">
+        <li style="--row:1"><span class="dot dot-green"></span>Kubernetes &amp; AWS EKS<span class="status-tag">OPERATIONAL</span></li>
+        <li style="--row:2"><span class="dot dot-green"></span>GitOps / ArgoCD<span class="status-tag">OPERATIONAL</span></li>
+        <li style="--row:3"><span class="dot dot-green"></span>Observability Stack<span class="status-tag">OPERATIONAL</span></li>
+        <li style="--row:4"><span class="dot dot-green"></span>Identity &amp; Access<span class="status-tag">OPERATIONAL</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="stat-strip reveal">
+    <div class="stat-strip-inner">
+      <div class="stat">
+        <span class="stat-num">50+</span>
+        <span class="stat-label">AWS accounts under centralized SSO</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">60+</span>
+        <span class="stat-label">Applications managed through GitOps</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">24/7</span>
+        <span class="stat-label">Live trading infrastructure</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-inner">
+      <p class="section-label">01 · About</p>
+      <h2>From data pipelines to platform engineering</h2>
+      <div class="about-grid reveal">
+        <p>I spent the first stretch of my career building data infrastructure: streaming pipelines on Kafka, batch processing with PySpark, and the Kubernetes clusters that ran them. That work taught me to think in flows, where data comes from, what could break it in transit, and how you'd actually know if it did.</p>
+        <p>I now bring that thinking to the Cloud Platform Engineering team at Tradu (FXCM / Stratos Group), where I help build and operate the AWS EKS platform behind the firm's trading systems, spanning Kubernetes networking, GitOps delivery, identity, and observability. The stakes are different when infrastructure sits under a live trading platform instead of a dashboard, and that's exactly the kind of pressure I wanted to build under.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section section-alt">
+    <div class="section-inner">
+      <p class="section-label">02 · Experience</p>
+      <h2>Where I've worked</h2>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Platform Engineer</h3>
+              <span class="timeline-date">[Start Date] – Present</span>
+            </div>
+            <span class="timeline-org">Tradu (FXCM / Stratos Group) · Cloud Platform Engineering</span>
+            <ul class="timeline-bullets">
+              <li>Operate a production AWS EKS cluster, owning platform tooling including ArgoCD, cert-manager, external-dns, and the AWS Load Balancer Controller across network-isolated node groups.</li>
+              <li>Own the organization's data platform end to end: modernized Apache Superset, operate Airflow and Airbyte pipelines, and led PoC evaluations of platform tooling for scalability and operational overhead before production rollout.</li>
+              <li>Architected a hybrid on-prem to AWS integration using Site-to-Site VPN, a private API Gateway, and VPC endpoints, enabling secure data sharing between internal systems and cloud services.</li>
+              <li>Developed a RAG-based internal data discovery API on AWS Bedrock, letting teams query sensitive operational data in natural language with enterprise-grade access controls.</li>
+              <li>Built and maintain a full observability stack (Prometheus, Loki, Grafana, Grafana Alloy), tuning ingestion pipelines and right-sizing Kafka consumer throughput under high-volume trading workloads.</li>
+              <li>Manage the Kubernetes secrets lifecycle using External Secrets Operator backed by AWS Secrets Manager, covering database, Kafka, Redis, and CloudNativePG bootstrap credentials.</li>
+              <li>Manage Azure Entra ID identity infrastructure as Terraform code, including SSO integrations, SCIM provisioning across multiple SaaS platforms, and IAM Identity Center access across 50+ AWS accounts.</li>
+              <li>Contributed to a MiFID II and GDPR-compliant data architecture for regulatory reporting, covering immutable audit trail storage, envelope encryption for personal data, and tiered S3 retention with Object Lock.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Engineer 2, Engineering Operations</h3>
+              <span class="timeline-date">Apr 2023 – Dec 2024</span>
+            </div>
+            <span class="timeline-org">Comcast · Chennai, India</span>
+            <ul class="timeline-bullets">
+              <li>Developed PySpark applications in a Hadoop environment to process Kafka streams, and engineered ETL pipelines moving data from Cassandra into MySQL using Spark RDDs, DataFrames, and streaming.</li>
+              <li>Containerized and deployed applications using Docker, Helm, and Kubernetes, standardising deployment packaging across the engineering estate and eliminating environment-specific failures at rollout.</li>
+              <li>Developed Ansible modules and AWX playbooks for configuration management and automated provisioning across a large server estate, including a datacenter switchover automation completing full failover within a 2 to 5 minute RTO.</li>
+              <li>Designed and managed Kubernetes workloads for internal tooling including MLflow and ML inference services, owning the full deployment lifecycle from provisioning to decommission.</li>
+              <li>Deployed and operated a centralised observability stack using Prometheus, Grafana, and Filebeat for real-time metrics and log aggregation.</li>
+              <li>Built an incident severity prediction tool as a Lab Week project using LangChain and RAG over a vector database, surfaced through a Streamlit app as an internal proof of concept.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Engineer 1, Engineering Operations</h3>
+              <span class="timeline-date">Aug 2021 – Mar 2023</span>
+            </div>
+            <span class="timeline-org">Comcast · Chennai, India</span>
+            <ul class="timeline-bullets">
+              <li>Managed alert processing from Kafka data pipelines, implementing high-throughput ETL workflows in Python for large-scale data handling and alert enrichment.</li>
+              <li>Developed RESTful APIs using Flask to support data exchange between pipeline components and backend services.</li>
+              <li>Administered a multi-node Kafka cluster handling thousands of alerts per minute, maintaining high availability for continuous streaming workloads.</li>
+              <li>Designed and deployed a monitoring platform using Prometheus, Grafana, and Filebeat for centralized logging and real-time pipeline observability.</li>
+              <li>Administered OpenStack private cloud infrastructure, including compute provisioning, security groups, network policies, and snapshot-based backups across a multi-tenant server estate.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="section-inner">
+      <p class="section-label">03 · Projects</p>
+      <h2>Featured work</h2>
+      <div class="project-grid">
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Kubernetes powers the whole trading platform: every service here runs as a pod on EKS.">Kubernetes</span><span data-tip="Grafana is where every dashboard in the observability stack gets built and read.">Grafana</span><span data-tip="Loki is the logging backend that was silently running out of storage in this incident.">Loki</span></div>
+          <h3>Diagnosing a silent storage leak in the observability stack</h3>
+          <p>A logging backend's storage was growing far faster than expected. Traced the root cause to a single workload emitting extremely high-frequency debug-level logs, then retuned ingestion limits and pipeline filtering. Also fixed a mismatched dashboard datasource that had been hiding the real signal.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Kubernetes Gateway API replaced legacy Ingress as the platform's routing layer.">Kubernetes</span><span data-tip="The Gateway API standard (HTTPRoute, TCPRoute, TLSRoute) that Ingress was migrated to.">Gateway API</span><span data-tip="Envoy Gateway is the proxy implementation running behind the Gateway API on this cluster.">Envoy</span></div>
+          <h3>Consolidating a Kubernetes Gateway API footprint</h3>
+          <p>Led the migration from legacy Ingress to the Kubernetes Gateway API, consolidating routing rules across dozens of configuration files behind Envoy Gateway (HTTPRoute, TCPRoute, TLSRoute) and resolving a production issue where proxy-layer interference was breaking database traffic. Cut the number of active listeners by roughly 40% with no service disruption.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="AWS is the cloud this entire platform runs on, across a multi-account organization.">AWS</span><span data-tip="Route 53 and on-prem BIND zones were both part of the broken DNS chain here.">Route 53</span><span data-tip="Hybrid on-prem-to-AWS networking, also used for Site-to-Site VPN and Private API Gateway integrations.">Networking</span></div>
+          <h3>Tracing a broken DNS chain across a hybrid network</h3>
+          <p>A corporate firewall was silently blocking internal Kubernetes CLI access. Root-caused a multi-day investigation to a gap in DNS forwarding across on-prem and multiple AWS-hosted DNS zones, and specified the fix that restored reliable access.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="AWS IAM Identity Center provides centralized SSO access across the whole AWS organization.">AWS IAM</span><span data-tip="Azure Entra ID is the identity provider, managed as Terraform code.">Azure Entra ID</span><span data-tip="Single sign-on ties Azure Entra ID into AWS and every connected SaaS platform.">SSO</span></div>
+          <h3>Scaling identity and access across 50+ AWS accounts</h3>
+          <p>Supported an AWS IAM Identity Center / SSO architecture providing centralized, auditable access across a large multi-account AWS organization. On the identity provider side, helped manage Azure Entra ID as Terraform code: SSO integrations, SCIM provisioning across multiple SaaS platforms, and Conditional Access policies, so access changes go through code review instead of portal clicks.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Security incident response: log analysis, impact assessment, and remediation.">Security</span><span data-tip="Used CloudWatch Logs Insights and VPC Flow Logs to investigate this incident end to end.">Incident Response</span></div>
+          <h3>Investigating a stored XSS security incident</h3>
+          <p>Used log and network flow analysis to investigate a stored cross-site scripting vulnerability end to end, confirmed that no data had been exfiltrated, and flagged a missing web application firewall as a critical follow-up gap.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="ArgoCD is the GitOps engine driving every deployment on the cluster.">ArgoCD</span><span data-tip="GitOps means Git is the single source of truth for what's running in the cluster.">GitOps</span><span data-tip="Kubernetes-native secrets management via External Secrets Operator sits alongside this GitOps layer.">Kubernetes</span></div>
+          <h3>Operating GitOps at scale with ArgoCD</h3>
+          <p>Operate a GitOps delivery model managing 60+ applications through an App-of-Apps pattern, including automated image updates and Kubernetes-native secrets management via cert-manager and External Secrets Operator.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="MiFID II and GDPR are the two regulatory frameworks this architecture was built to satisfy at once.">Compliance</span><span data-tip="AWS KMS customer-managed keys power the per-user crypto-shredding for GDPR data deletion requests.">AWS KMS</span><span data-tip="ClickHouse stores the immutable audit trail this architecture is built around.">ClickHouse</span></div>
+          <h3>Building a MiFID II and GDPR-compliant data architecture</h3>
+          <p>Contributed to a regulatory-reporting architecture built around an immutable ClickHouse audit trail, envelope encryption for personal data with per-user crypto-shredding via AWS KMS, and tiered S3 retention using Object Lock, satisfying MiFID II and GDPR requirements together.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Apache Superset is the BI platform this modernization was centered on.">Apache Superset</span><span data-tip="Airflow orchestrates the PySpark and Python pipelines behind the analytics platform.">Airflow</span><span data-tip="Airbyte handles ETL and ELT ingestion into the data platform.">Airbyte</span></div>
+          <h3>Modernizing the data platform: Superset, Airflow, and Airbyte</h3>
+          <p>Owned the analytics platform end to end: migrated Superset to a containerized Docker setup with Puppet-driven automation, upgraded it from v4.1 to v6.0, and built a Salesforce embedding framework using token-based authentication and RISON-driven dynamic URLs. Also deployed Airbyte's AWS infrastructure with Terraform and containerized Airflow 2 pipelines, with provisioning automated end to end through GitHub Actions.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="LangChain powered both the original hackathon prototype and the production RAG pipeline years later.">LangChain</span><span data-tip="AWS Bedrock (Claude and Titan models) hosts the production version of this system.">AWS Bedrock</span><span data-tip="Retrieval-Augmented Generation: grounding LLM answers in retrieved, private documents instead of memory alone.">RAG</span></div>
+          <h3>From a hackathon prototype to an enterprise RAG platform</h3>
+          <p>Built an incident-severity predictor using LangChain and RAG as a Lab Week project early in my career. Years later, built on that same idea in production: an enterprise RAG platform on AWS Bedrock, with a document ingestion pipeline using Titan Embeddings, a knowledge base in OpenSearch Serverless, and a private Lambda and API Gateway layer reachable only inside the VPC via PrivateLink, with CloudTrail logging every inference call for compliance.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="A single-shot multibox detector (SSD) model for real-time object detection.">Deep Learning</span><span data-tip="Python tied the camera feed, the detection model, and the audio output together.">Python</span><span data-tip="OpenCV handled the camera feed and image processing pipeline.">OpenCV</span></div>
+          <h3>Building an assistive object detection system</h3>
+          <p>A personal project built out of curiosity, well before AI was part of the job description: an SSD-based vision system in Python and OpenCV that detects nearby objects from a mobile camera feed and speaks their name and distance out loud, aimed at helping visually impaired users navigate their surroundings.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section section-alt">
+    <div class="section-inner">
+      <p class="section-label">04 · Skills</p>
+      <h2>Toolbox</h2>
+      <p class="skills-hint reveal">Hover (or tap) any tag for specifics.</p>
+      <div class="skills-grid">
+        <div class="skill-group reveal">
+          <h4>Cloud &amp; Infrastructure</h4>
+          <div class="tag-row">
+            <span data-tip="Own the full lifecycle of a production EKS 1.35 cluster: RBAC, security contexts, node groups, and live incident response for a trading platform.">AWS EKS</span>
+            <span data-tip="Administer AWS IAM Identity Center and SSO access across 50+ accounts as the org's platform admin.">IAM &amp; SSO</span>
+            <span data-tip="Traced a multi-day DNS gap spanning on-prem BIND and multiple AWS-hosted Route 53 zones.">Route 53</span>
+            <span data-tip="Built a centralized multi-account ECR with lifecycle policies, OIDC push roles, and a pull-through cache.">ECR</span>
+            <span data-tip="Designed VPC endpoints and PrivateLink access so internal and AI workloads never touch the public internet.">VPC</span>
+            <span data-tip="Used CloudWatch Logs Insights and metrics to investigate everything from IAM issues to a security incident.">CloudWatch</span>
+            <span data-tip="Author Terraform Enterprise modules for EKS and platform infrastructure across a multi-account AWS org.">Terraform</span>
+            <span data-tip="Built the Lambda functions behind the Superset embedding API and the Bedrock RAG data-discovery service.">Lambda</span>
+            <span data-tip="Exposed a private, VPC-only API layer for Bedrock RAG queries and Superset's Salesforce embedding.">API Gateway</span>
+            <span data-tip="Configured tiered retention with Object Lock Compliance mode for MiFID II and GDPR data governance.">S3</span>
+            <span data-tip="Implemented envelope encryption with customer-managed keys, enabling per-user crypto-shredding for GDPR.">AWS KMS</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Kubernetes</h4>
+          <div class="tag-row">
+            <span data-tip="Migrated from legacy Ingress to Envoy Gateway, consolidating routing across dozens of files.">Gateway API</span>
+            <span data-tip="Defined RBAC and security contexts for a production EKS cluster running regulated financial workloads.">RBAC</span>
+            <span data-tip="Enforced network isolation across trading, database, and gateway node groups on a shared cluster.">NetworkPolicy</span>
+            <span data-tip="Managed PVC storage for CloudNativePG, Loki, and Kafka, including live resizes without downtime.">StorageClass</span>
+            <span data-tip="Operated legacy Ingress before leading its replacement with the Kubernetes Gateway API.">Ingress</span>
+            <span data-tip="Automated recurring platform maintenance and token refreshes with Kubernetes CronJobs.">Jobs &amp; CronJobs</span>
+            <span data-tip="Packaged platform tooling and ML inference services as Helm charts and custom manifests.">Helm</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>GitOps &amp; Delivery</h4>
+          <div class="tag-row">
+            <span data-tip="Run an App-of-Apps GitOps pattern managing 60+ applications as the platform's deployment layer.">ArgoCD</span>
+            <span data-tip="Designed the root-app bootstrap pattern that recreates every child Application automatically from Git.">App-of-Apps</span>
+            <span data-tip="Automated image promotion with IRSA-based ECR auth, removing manual deployment steps for app teams.">Image Updater</span>
+            <span data-tip="Built OIDC-based push roles for ECR and automated Airbyte's infrastructure provisioning end to end.">GitHub Actions</span>
+            <span data-tip="Automated Superset's Docker Compose deployment and configuration consistency across environments.">Puppet</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Observability</h4>
+          <div class="tag-row">
+            <span data-tip="Build and maintain the dashboards and alerting behind the platform's entire observability stack.">Grafana</span>
+            <span data-tip="Designed a monitoring platform from scratch at Comcast, then operated it at trading-platform scale at Tradu.">Prometheus</span>
+            <span data-tip="Diagnosed a Loki ingestion saturation issue caused by a workload logging at debug level under trading traffic.">Loki</span>
+            <span data-tip="Planning the Promtail-to-Alloy migration ahead of Promtail's end of life.">Grafana Alloy</span>
+            <span data-tip="Used daily to trace incidents from a metric anomaly back to root cause.">PromQL</span>
+            <span data-tip="Used daily to search and correlate logs across every namespace on the cluster.">LogQL</span>
+            <span data-tip="Deployed Filebeat-based centralized logging for infrastructure and pipeline observability at Comcast.">ELK Stack</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Identity &amp; Security</h4>
+          <div class="tag-row">
+            <span data-tip="Manage Entra ID as Terraform code: SSO, Conditional Access, and SCIM across multiple SaaS platforms.">Azure Entra ID</span>
+            <span data-tip="Rolled out SCIM provisioning so SaaS access stays in sync with the identity provider automatically.">SCIM</span>
+            <span data-tip="Led internal POCs on SSO architecture, including Duo-backed authentication for Superset.">SAML SSO</span>
+            <span data-tip="Designed Zero Trust access policies gated by device, location, and risk signal, not just network location.">Conditional Access</span>
+            <span data-tip="Administer AWS SSO permission sets across a 50+ account AWS organization.">IAM Identity Center</span>
+            <span data-tip="Automated TLS issuance via Let's Encrypt, migrating from HTTP-01 to DNS-01 challenges.">cert-manager</span>
+            <span data-tip="Migrated every plaintext Kubernetes secret to AWS Secrets Manager-backed External Secrets.">External Secrets Operator</span>
+            <span data-tip="Flagged a missing WAF as a critical gap while investigating a stored XSS incident.">WAF</span>
+            <span data-tip="Used alongside AWS Secrets Manager for secrets management across infrastructure estates.">Vault</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Compliance &amp; Data Governance</h4>
+          <div class="tag-row">
+            <span data-tip="Contributed to a MiFID II-compliant architecture: immutable audit trails and tiered retention for a live trading platform.">MiFID II</span>
+            <span data-tip="Built PII crypto-shredding via per-user KMS keys, so deletion requests are cryptographically enforced.">GDPR</span>
+            <span data-tip="Used Compliance mode to make regulatory audit trail storage tamper-proof, even against admin deletion.">S3 Object Lock</span>
+            <span data-tip="Enabled logging on every LLM inference call so AI usage meets the same audit bar as the trading environment.">CloudTrail</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Data Platform &amp; Engineering</h4>
+          <div class="tag-row">
+            <span data-tip="Owned Superset end to end: migrated it to Docker, upgraded v4.1 to v6.0, and built a Salesforce embedding framework.">Apache Superset</span>
+            <span data-tip="Diagnosed DAG execution bottlenecks through metrics analysis and containerized Airflow 2 with Docker Compose.">Airflow</span>
+            <span data-tip="Designed and deployed Airbyte's AWS infrastructure with Terraform, provisioned end to end via GitHub Actions.">Airbyte</span>
+            <span data-tip="Administered multi-node clusters handling thousands of messages a minute, then right-sized consumer throughput using Grafana lag tracking.">Kafka</span>
+            <span data-tip="Built pipelines on Hadoop, processing Kafka streams and moving data from Cassandra into MySQL at scale.">PySpark</span>
+            <span data-tip="Ran PySpark transformations inside a Hadoop environment, applying RDDs and DataFrames to large datasets.">Hadoop</span>
+            <span data-tip="Source database for PySpark ETL pipelines feeding downstream MySQL reporting tables.">Cassandra</span>
+            <span data-tip="Backbone of an immutable audit trail for MiFID II-compliant regulatory reporting.">ClickHouse</span>
+            <span data-tip="Built RESTful APIs to move data between pipeline components and backend services.">Flask</span>
+            <span data-tip="Backing stores for ETL pipelines, CNPG-managed databases, and reporting tables.">MySQL &amp; PostgreSQL</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>AI &amp; ML</h4>
+          <div class="tag-row">
+            <span data-tip="Built a LangChain-based incident predictor as a Lab Week project, later extended into a production RAG platform.">LangChain</span>
+            <span data-tip="Designed full retrieval pipelines: chunking, embeddings, vector storage, and grounded generation.">RAG</span>
+            <span data-tip="Built an enterprise RAG platform on Bedrock (Claude and Titan models) with VPC-only access via PrivateLink.">AWS Bedrock</span>
+            <span data-tip="Generated vector embeddings for a document knowledge base stored in OpenSearch Serverless.">Titan Embeddings</span>
+            <span data-tip="Vector backend for the Bedrock knowledge base, queried through hybrid retrieval.">OpenSearch</span>
+            <span data-tip="Used both Azure AI Vector Store and OpenSearch Serverless as backends for two different RAG systems.">Vector Databases</span>
+            <span data-tip="Designed and managed MLflow and ML inference workloads on Kubernetes, owning their full deployment lifecycle.">MLflow</span>
+            <span data-tip="Tuned inference parameters so natural-language queries return precise, grounded answers.">Prompt Engineering</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Scripting, Tools &amp; Automation</h4>
+          <div class="tag-row">
+            <span data-tip="The language behind almost everything here: ETL pipelines, Flask APIs, and PySpark jobs alike.">Python</span>
+            <span data-tip="Used daily for Kubernetes and AWS CLI operations, from CloudShell diagnostics to CI scripting.">Bash</span>
+            <span data-tip="Local scripting environment for Windows-based cluster access, alongside AWS CloudShell for in-VPC work.">PowerShell</span>
+            <span data-tip="Wrote modules and AWX playbooks for datacenter switchover automation, hitting a 2 to 5 minute RTO.">Ansible</span>
+            <span data-tip="Version control for every Terraform, GitOps, and application repo across the platform.">Git</span>
+            <span data-tip="Administered a private cloud: compute provisioning, security groups, and snapshot backups for a multi-tenant estate.">OpenStack</span>
+            <span data-tip="Tracked platform work end to end, from ticket to PR to production rollout.">Jira</span>
+            <span data-tip="Additional language from an academic and early-career foundation.">C++</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <div class="section-inner">
+      <p class="section-label">05 · Education</p>
+      <h2>Background</h2>
+      <div class="edu-grid reveal">
+        <div class="edu-card">
+          <h4>Education</h4>
+          <h3>B.E., Computer Science and Engineering</h3>
+          <p>Anna University · Aug 2017 – May 2021</p>
+          <p class="edu-note">First Class with Distinction (80%)</p>
+        </div>
+        <div class="edu-card">
+          <h4>Certifications &amp; Awards</h4>
+          <ul class="cert-list">
+            <li>Docker Products, LinkedIn Learning</li>
+            <li>Ansible Hands-On DevOps, KodeKloud</li>
+            <li>MATLAB Onramp, MathWorks (2020)</li>
+            <li>Rockstar Award, Comcast</li>
+            <li>Competitive coding: Google Kick Start, TCS CodeVita, HackerRank Hackfest</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section section-alt">
+    <div class="section-inner contact-inner">
+      <p class="section-label">06 · Contact</p>
+      <h2>Let's talk</h2>
+      <p class="reveal">I'm most interested in Platform, DevOps, Cloud, and MLOps roles. Happy to talk through any of the projects above in more depth, or about what a team's Kubernetes and AWS setup actually looks like day to day. Open to relocation and remote roles.</p>
+      <div class="contact-links reveal">
+        <a href="mailto:Shanmugam123457@gmail.com">Shanmugam123457@gmail.com</a>
+        <a href="tel:+918825801185">+91 88258 01185</a>
+        <a href="https://linkedin.com/in/your-handle">LinkedIn</a>
+        <a href="https://github.com/your-handle">GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>© 2026 Shanmugam Sundar</span>
+    <span>Chennai, India</span>
+  </div>
+</footer>
+
+<script>
+  // Immediate reveal for hero + stat strip (above the fold, don't wait for scroll)
+  document.querySelectorAll('.hero .reveal, .stat-strip.reveal').forEach(function (el, i) {
+    setTimeout(function () { el.classList.add('in-view'); }, 100 + i * 150);
+  });
+
+  // Scroll-triggered reveal for everything else
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.section .reveal').forEach(function (el) { observer.observe(el); });
+
+  // Mobile nav toggle
+  var toggle = document.getElementById('navToggle');
+  var links = document.getElementById('navLinks');
+  toggle.addEventListener('click', function () {
+    var isOpen = links.classList.toggle('open');
+    toggle.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+  links.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      links.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Active nav link on scroll
+  var navLinkEls = document.querySelectorAll('.nav-links a[href^="#"]');
+  var navObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      var id = entry.target.getAttribute('id');
+      var link = document.querySelector('.nav-links a[href="#' + id + '"]');
+      if (link && !link.classList.contains('nav-cta') && entry.isIntersecting) {
+        navLinkEls.forEach(function (a) { a.classList.remove('active'); });
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(function (s) { navObserver.observe(s); });
+
+  // Tooltip tags: keyboard-focusable, and tap-to-toggle for touch devices (hover alone doesn't work on touch)
+  var tipEls = document.querySelectorAll('[data-tip]');
+  tipEls.forEach(function (el) {
+    el.setAttribute('tabindex', '0');
+    el.addEventListener('click', function (e) {
+      var wasActive = el.classList.contains('tip-active');
+      tipEls.forEach(function (o) { o.classList.remove('tip-active'); });
+      if (!wasActive) el.classList.add('tip-active');
+      e.stopPropagation();
+    });
+  });
+  document.addEventListener('click', function () {
+    tipEls.forEach(function (o) { o.classList.remove('tip-active'); });
+  });
+</script>
+</body>
+</html>
