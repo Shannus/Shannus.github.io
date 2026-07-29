@@ -1,0 +1,21 @@
+# node
+node_modules/
+dist/
+*.tsbuildinfo
+services/*/function.zip
+
+# terraform / opentofu
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+infra/modules/service/.placeholder-*.zip
+
+# pulumi
+Pulumi.*.local.yaml
+
+# misc
+.DS_Store
+*.log
