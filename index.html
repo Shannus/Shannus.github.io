@@ -330,6 +330,83 @@
   .traffic-strip.traffic-error .traffic-caption { display: none; }
   .traffic-strip.traffic-error .traffic-error-msg { display: block; }
 
+  /* Building-block pixel animation */
+  .bb-strip { padding: 3.5rem 1.5rem; position: relative; z-index: 1; }
+  .bb-strip-inner { max-width: var(--container); margin: 0 auto; }
+  .bb-scene {
+    position: relative; display: flex; align-items: flex-end; justify-content: center;
+    gap: 26px; height: 158px; padding-bottom: 14px; max-width: 360px; margin: 0 auto;
+  }
+  .bb-ground {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 300px; max-width: 100%; height: 14px; border-radius: 3px;
+    background: repeating-linear-gradient(90deg, var(--surface-2) 0 22px, var(--border) 22px 24px);
+    border-top: 2px solid rgba(227, 168, 62, 0.35);
+  }
+  .bb-char { position: relative; z-index: 2; width: 44px; height: 50px; animation: bb-hop 1.6s ease-in-out infinite; }
+  .bb-char svg { display: block; filter: drop-shadow(0 4px 5px rgba(0,0,0,0.45)); }
+  .bb-tower { position: relative; z-index: 1; width: 74px; height: 124px; }
+  .bb-block {
+    position: absolute; left: 0; width: 74px; height: 28px;
+    background: var(--surface-2); border: 2px solid var(--accent); border-radius: 4px;
+    box-shadow: inset 0 3px 0 rgba(240, 185, 79, 0.22), 0 4px 10px rgba(0, 0, 0, 0.4);
+    transform-origin: center bottom; opacity: 0;
+    animation-duration: 9.6s; animation-iteration-count: infinite; animation-timing-function: ease-out;
+  }
+  .bb-b1 { bottom: 0; animation-name: bb-drop1; }
+  .bb-b2 { bottom: 30px; animation-name: bb-drop2; }
+  .bb-b3 { bottom: 60px; animation-name: bb-drop3; }
+  .bb-b4 { bottom: 90px; animation-name: bb-drop4; }
+  .bb-caption { text-align: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-top: 1.4rem; }
+  .bb-tagline { text-align: center; font-family: var(--font-display); font-weight: 600; font-size: 1rem; color: var(--accent); margin-top: 0.3rem; }
+
+  @keyframes bb-hop {
+    0%, 58%, 100% { transform: translateY(0) scaleY(1); }
+    24% { transform: translateY(-16px) scaleY(1.03); }
+    62% { transform: translateY(0) scaleY(0.9); }
+    70% { transform: translateY(0) scaleY(1); }
+  }
+  @keyframes bb-drop1 {
+    0%, 12% { opacity: 0; transform: translateY(-66px) scaleY(0.8); }
+    12.5% { opacity: 1; transform: translateY(-66px) scaleY(0.8); }
+    16% { opacity: 1; transform: translateY(0) scaleY(1.12); }
+    18% { transform: scaleY(0.9); }
+    20% { transform: scaleY(1.04); }
+    22%, 90% { opacity: 1; transform: scaleY(1); }
+    96%, 100% { opacity: 0; transform: scaleY(1); }
+  }
+  @keyframes bb-drop2 {
+    0%, 29% { opacity: 0; transform: translateY(-66px) scaleY(0.8); }
+    29.5% { opacity: 1; transform: translateY(-66px) scaleY(0.8); }
+    33% { opacity: 1; transform: translateY(0) scaleY(1.12); }
+    35% { transform: scaleY(0.9); }
+    37% { transform: scaleY(1.04); }
+    39%, 90% { opacity: 1; transform: scaleY(1); }
+    96%, 100% { opacity: 0; transform: scaleY(1); }
+  }
+  @keyframes bb-drop3 {
+    0%, 46% { opacity: 0; transform: translateY(-66px) scaleY(0.8); }
+    46.5% { opacity: 1; transform: translateY(-66px) scaleY(0.8); }
+    50% { opacity: 1; transform: translateY(0) scaleY(1.12); }
+    52% { transform: scaleY(0.9); }
+    54% { transform: scaleY(1.04); }
+    56%, 90% { opacity: 1; transform: scaleY(1); }
+    96%, 100% { opacity: 0; transform: scaleY(1); }
+  }
+  @keyframes bb-drop4 {
+    0%, 62% { opacity: 0; transform: translateY(-66px) scaleY(0.8); }
+    62.5% { opacity: 1; transform: translateY(-66px) scaleY(0.8); }
+    66% { opacity: 1; transform: translateY(0) scaleY(1.12); }
+    68% { transform: scaleY(0.9); }
+    70% { transform: scaleY(1.04); }
+    72%, 90% { opacity: 1; transform: scaleY(1); }
+    96%, 100% { opacity: 0; transform: scaleY(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bb-char { animation: none !important; }
+    .bb-block { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+
   /* Footer */
   .footer { padding: 2rem 1.5rem; }
   .footer-inner {
@@ -358,6 +435,7 @@
     .stat { min-width: 140px; }
     .timeline-item { padding-left: 1.5rem; }
     [data-tip]::after { max-width: 180px; font-size: 0.74rem; padding: 0.55rem 0.7rem; }
+    .bb-strip { padding: 2.5rem 1.25rem; }
   }
 </style>
 </head>
@@ -405,6 +483,37 @@
         <li style="--row:3"><span class="dot dot-green"></span>Observability Stack<span class="status-tag">OPERATIONAL</span></li>
         <li style="--row:4"><span class="dot dot-green"></span>Identity &amp; Access<span class="status-tag">OPERATIONAL</span></li>
       </ul>
+    </div>
+  </section>
+
+  <section class="bb-strip reveal" aria-label="Pixel animation of a builder stacking blocks into a tower">
+    <div class="bb-strip-inner">
+      <div class="bb-scene" role="img" aria-label="A retro pixel builder character stacking blocks into a tower">
+        <div class="bb-ground" aria-hidden="true"></div>
+        <div class="bb-char" aria-hidden="true">
+          <svg viewBox="0 0 44 50" width="44" height="50" xmlns="http://www.w3.org/2000/svg">
+            <rect x="12" y="44" width="7" height="6" rx="1" fill="#c98f2a"></rect>
+            <rect x="25" y="44" width="7" height="6" rx="1" fill="#c98f2a"></rect>
+            <rect x="3" y="26" width="6" height="11" rx="2" fill="#c98f2a"></rect>
+            <rect x="35" y="26" width="6" height="11" rx="2" fill="#c98f2a"></rect>
+            <rect x="9" y="20" width="26" height="26" rx="5" fill="#1e2631" stroke="#e3a83e" stroke-width="2"></rect>
+            <rect x="15" y="28" width="4" height="5" rx="1" fill="#e9edf2"></rect>
+            <rect x="25" y="28" width="4" height="5" rx="1" fill="#e9edf2"></rect>
+            <path d="M17 37 Q22 41 27 37" stroke="#e9edf2" stroke-width="2" fill="none" stroke-linecap="round"></path>
+            <rect x="7" y="16" width="30" height="4" rx="2" fill="#e3a83e"></rect>
+            <path d="M13 16 Q13 8 22 8 Q31 8 31 16 Z" fill="#e3a83e"></path>
+            <rect x="21" y="9" width="2" height="7" fill="#f0b94f"></rect>
+          </svg>
+        </div>
+        <div class="bb-tower" aria-hidden="true">
+          <div class="bb-block bb-b1"></div>
+          <div class="bb-block bb-b2"></div>
+          <div class="bb-block bb-b3"></div>
+          <div class="bb-block bb-b4"></div>
+        </div>
+      </div>
+      <p class="bb-caption">Build one block at a time.</p>
+      <p class="bb-tagline">A building block of development.</p>
     </div>
   </section>
 
@@ -800,7 +909,7 @@
     });
   }, { threshold: 0.01, rootMargin: '0px 0px -8% 0px' });
 
-  document.querySelectorAll('.section .reveal, .traffic-strip.reveal').forEach(function (el) { observer.observe(el); });
+  document.querySelectorAll('.section .reveal, .traffic-strip.reveal, .bb-strip.reveal').forEach(function (el) { observer.observe(el); });
 
   // Mobile nav toggle
   var toggle = document.getElementById('navToggle');
