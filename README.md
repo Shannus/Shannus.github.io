@@ -18,14 +18,4 @@ pulumi/            Optional Pulumi (TS) app layer over Terraform state
 .github/workflows  ci.yml (gate + deploy chain), deploy.yml (reusable), rollback.yml
 assets/app.js      Front-end wiring (live status widget + contact form)
 docs/              REQUIREMENTS-COVERAGE.md, RUNBOOK.md
-```
-
-## Start here
-1. `docs/REQUIREMENTS-COVERAGE.md` — every JD line mapped to a file + mechanism.
-2. `docs/RUNBOOK.md` — deploy it on your own AWS account, step by step.
-
-## Verified locally
-- contact: typecheck clean, 9 vitest tests pass, 24 KB deployment zip.
-- status: typecheck clean, 5 vitest tests pass, 876 B deployment zip.
-- Terraform: `tofu fmt` parse-clean across all modules.
-- Workflows: YAML-valid.
+``
