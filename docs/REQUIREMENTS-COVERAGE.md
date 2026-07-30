@@ -1,7 +1,4 @@
-# Requirements Coverage — Senior DevOps Engineer (Platform Automation)
-
-Every line of the job description mapped to the file and mechanism that implements it.
-Use this as your build checklist *and* your interview cheat sheet.
+# Requirements Coverage
 
 Naming convention used everywhere: **`[ProductSuite]-[TenantName]-[Environment]`** → `portfolio-public-dev`.
 Two "product lines" model the JD's V1/V2 consolidation: **contact = V1** (in-VPC, DB-backed), **status = V2** (no DB).
