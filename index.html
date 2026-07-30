@@ -375,8 +375,8 @@
     <div class="nav-links" id="navLinks">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
       <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
       <a href="#contact" class="nav-cta">Contact</a>
     </div>
   </div>
@@ -506,88 +506,9 @@
     </div>
   </section>
 
-  <section id="projects" class="section">
+  <section id="skills" class="section">
     <div class="section-inner">
-      <p class="section-label">03 · Projects</p>
-      <h2>Featured work</h2>
-      <div class="project-grid">
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="Kubernetes powers the whole trading platform: every service here runs as a pod on EKS.">Kubernetes</span><span data-tip="Grafana is where every dashboard in the observability stack gets built and read.">Grafana</span><span data-tip="Loki is the logging backend that was silently running out of storage in this incident.">Loki</span></div>
-          <h3>Diagnosing a silent storage leak in the observability stack</h3>
-          <p>A logging backend's storage was growing far faster than expected. Traced the root cause to a single workload emitting extremely high-frequency debug-level logs, then retuned ingestion limits and pipeline filtering. Also fixed a mismatched dashboard datasource that had been hiding the real signal.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="Kubernetes Gateway API replaced legacy Ingress as the platform's routing layer.">Kubernetes</span><span data-tip="The Gateway API standard (HTTPRoute, TCPRoute, TLSRoute) that Ingress was migrated to.">Gateway API</span><span data-tip="Envoy Gateway is the proxy implementation running behind the Gateway API on this cluster.">Envoy</span></div>
-          <h3>Consolidating a Kubernetes Gateway API footprint</h3>
-          <p>Led the migration from legacy Ingress to the Kubernetes Gateway API, consolidating routing rules across dozens of configuration files behind Envoy Gateway (HTTPRoute, TCPRoute, TLSRoute) and resolving a production issue where proxy-layer interference was breaking database traffic. Cut the number of active listeners by roughly 40% with no service disruption.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="Route 53 and on-prem BIND zones were both part of the broken DNS chain here.">Route 53</span><span data-tip="ExternalDNS automates DNS record lifecycle from Kubernetes Service and Ingress resources.">ExternalDNS</span><span data-tip="Cloudflare is the DNS provider ExternalDNS manages records in, as part of the GitOps pipeline.">Cloudflare</span></div>
-          <h3>Tracing a broken DNS chain across a hybrid network</h3>
-          <p>A corporate firewall was silently blocking internal Kubernetes CLI access. Root-caused a multi-day investigation to a gap in DNS forwarding across on-prem and multiple AWS-hosted DNS zones, and specified the fix that restored reliable access.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="AWS IAM Identity Center provides centralized SSO access across the whole AWS organization.">AWS IAM</span><span data-tip="Azure Entra ID is the identity provider, managed as Terraform code.">Azure Entra ID</span><span data-tip="Single sign-on ties Azure Entra ID into AWS and every connected SaaS platform.">SSO</span></div>
-          <h3>Scaling identity and access across 50+ AWS accounts</h3>
-          <p>Supported an AWS IAM Identity Center / SSO architecture providing centralized, auditable access across a large multi-account AWS organization. On the identity provider side, helped manage Azure Entra ID as Terraform code: SSO integrations, SCIM provisioning across multiple SaaS platforms, and Conditional Access policies, so access changes go through code review instead of portal clicks.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="Security incident response: log analysis, impact assessment, and remediation.">Security</span><span data-tip="Used CloudWatch Logs Insights and VPC Flow Logs to investigate this incident end to end.">Incident Response</span></div>
-          <h3>Investigating a stored XSS security incident</h3>
-          <p>Used log and network flow analysis to investigate a stored cross-site scripting vulnerability end to end, confirmed that no data had been exfiltrated, and flagged a missing web application firewall as a critical follow-up gap.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="ArgoCD is the GitOps engine driving every deployment on the cluster.">ArgoCD</span><span data-tip="GitOps means Git is the single source of truth for what's running in the cluster.">GitOps</span><span data-tip="Kubernetes-native secrets management via External Secrets Operator sits alongside this GitOps layer.">Kubernetes</span></div>
-          <h3>Operating GitOps at scale with ArgoCD</h3>
-          <p>Operate a GitOps delivery model managing 60+ applications through an App-of-Apps pattern, including automated image updates and Kubernetes-native secrets management via cert-manager and External Secrets Operator. Functions as an internal developer platform in practice: teams add a new service by committing an Application manifest, and ArgoCD picks it up with no platform-team involvement required.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="MiFID II and GDPR are the two regulatory frameworks this architecture was built to satisfy at once.">Compliance</span><span data-tip="AWS KMS customer-managed keys power the per-user crypto-shredding for GDPR data deletion requests.">AWS KMS</span><span data-tip="ClickHouse stores the immutable audit trail this architecture is built around.">ClickHouse</span></div>
-          <h3>Building a MiFID II and GDPR-compliant data architecture</h3>
-          <p>Contributed to a regulatory-reporting architecture built around an immutable ClickHouse audit trail, envelope encryption for personal data with per-user crypto-shredding via AWS KMS, and tiered S3 retention using Object Lock, satisfying MiFID II and GDPR requirements together.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="Apache Superset is the BI platform this modernization was centered on.">Apache Superset</span><span data-tip="Airflow orchestrates the PySpark and Python pipelines behind the analytics platform.">Airflow</span><span data-tip="Airbyte handles ETL and ELT ingestion into the data platform.">Airbyte</span></div>
-          <h3>Modernizing the data platform: Superset, Airflow, and Airbyte</h3>
-          <p>Owned the analytics platform end to end: migrated Superset to a containerized Docker setup with Puppet-driven automation, upgraded it from v4.1 to v6.0, and configured Celery and Flower async workers for scheduled reports. Built a Salesforce embedding framework using guest-token authentication and RISON-driven dynamic URLs so dashboards appear natively inside Salesforce, and customized the security manager for group-based SSO access control. Also deployed Airbyte's AWS infrastructure with Terraform and containerized Airflow 2 pipelines, with provisioning automated end to end through GitHub Actions.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="LangChain powered the original hackathon prototype that this production system grew out of.">LangChain</span><span data-tip="AWS Bedrock hosts the production version of this system, years after the original prototype.">AWS Bedrock</span><span data-tip="Retrieval-Augmented Generation: grounding LLM answers in retrieved, private documents instead of memory alone.">RAG</span></div>
-          <h3>From a hackathon prototype to an enterprise RAG platform</h3>
-          <p>Built an incident-severity predictor using LangChain and RAG as a Lab Week project early in my career. Years later, built on that same idea in production: an enterprise RAG platform on AWS Bedrock serving an internal Ops team, this time with real compliance and access-control requirements instead of a weekend demo's worth.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="AWS Bedrock hosts the knowledge base and, via DeepSeek R1, the inference model for this system.">AWS Bedrock</span><span data-tip="OpenSearch Serverless is the vector store the Bedrock Knowledge Base syncs into.">OpenSearch</span><span data-tip="DeepSeek R1 was evaluated against the default model and won out for this specific knowledge domain.">DeepSeek R1</span></div>
-          <h3>Shipping a production RAG knowledge base: real constraints, real fixes</h3>
-          <p>Built the ingestion pipeline for an internal Ops knowledge assistant: pulling Salesforce Knowledge articles via SOQL, converting them to markdown with companion metadata JSON, and syncing into a Bedrock Knowledge Base (OpenSearch Serverless vectors, 600-token chunks with 12% overlap) queried through a private Lambda and API Gateway. Along the way: Bedrock's metadata has reserved keywords, so <code>id</code> and <code>source</code> both silently broke sync until renamed; metadata files cap out at 5 attributes, forcing hard choices about what to keep; and a model hallucination, where the LLM wrongly assumed deposits were available wherever withdrawals were mentioned, was fixed with an explicit prompt constraint rather than more data.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="A production Puppet 5 codebase provisioning core data platform services.">Puppet</span><span data-tip="Hiera 5 provides the environment-specific data layer for the Puppet manifests.">Hiera</span><span data-tip="ERB templates generate config files from Puppet-managed data.">ERB</span></div>
-          <h3>Operating a live Puppet 5 infrastructure codebase</h3>
-          <p>Contribute to a production Puppet 5 codebase (3,200+ commits, 27 contributors) that provisions data platform infrastructure including Airflow, Superset, and internal dashboard services. Author manifests, ERB templates, and Hiera 5 data configurations to keep development and production environments consistent, including scaling worker thread counts and fixing Airflow trigger configurations.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="Transit Gateway is the hub-and-spoke routing core connecting the trading cluster to the network account and on-premises systems.">Transit Gateway</span><span data-tip="PrivateLink keeps Bedrock and OpenSearch traffic inside the AWS network.">PrivateLink</span><span data-tip="AWS Network Firewall provides centralized traffic inspection across the multi-account network.">Network Firewall</span></div>
-          <h3>Designing and operating a multi-account AWS network</h3>
-          <p>Manage the AWS-side network architecture for a multi-account trading platform: Transit Gateway as the hub connecting the trading cluster's VPC to the network account and on-premises systems, VPC endpoints for private Bedrock and OpenSearch access, security groups and NACLs scoped per workload tier, and VPC Flow Logs plus AWS Network Firewall for traffic visibility and compliance, all managed in Terraform. The physical Direct Connect and VPN termination sits with the network infrastructure team; my side of the boundary is the TGW routing and VPC attachments that connect to it.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="GitHub Actions runs the CI/CD pipelines this security review covered.">GitHub Actions</span><span data-tip="Trivy scans container images for known vulnerabilities as part of the pipeline.">Trivy</span><span data-tip="SpotBugs is the static analysis tool catching bug patterns in the Java codebase.">SpotBugs</span></div>
-          <h3>Auditing a Java CI/CD security pipeline</h3>
-          <p>Contributed to and helped maintain the CI/CD security posture for a Java 21 multi-module Maven services stack: OWASP/NVD dependency scanning, Trivy container scanning, and SpotBugs static analysis running across the build, release, and deploy workflows. Also identified concrete gaps for the team to close, including an OIDC migration that's declared in the workflows but not yet wired up in favor of static AWS keys, and a SonarQube integration that was started but never finished.</p>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="A single-shot multibox detector (SSD) model for real-time object detection.">Deep Learning</span><span data-tip="Python tied the camera feed, the detection model, and the audio output together.">Python</span><span data-tip="OpenCV handled the camera feed and image processing pipeline.">OpenCV</span></div>
-          <h3>Building an assistive object detection system</h3>
-          <p>A personal project built out of curiosity, well before AI was part of the job description: an SSD-based vision system in Python and OpenCV that detects nearby objects from a mobile camera feed and speaks their name and distance out loud, aimed at helping visually impaired users navigate their surroundings.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" class="section section-alt">
-    <div class="section-inner">
-      <p class="section-label">04 · Skills</p>
+      <p class="section-label">03 · Skills</p>
       <h2>Toolbox</h2>
       <p class="skills-hint reveal">Hover (or tap) any tag for specifics.</p>
       <div class="skills-grid">
@@ -724,6 +645,85 @@
             <span data-tip="Automated DNS record management via ExternalDNS and Cloudflare, covering the hybrid DNS requirement in practice.">Hybrid DNS</span>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section section-alt">
+    <div class="section-inner">
+      <p class="section-label">04 · Projects</p>
+      <h2>Featured work</h2>
+      <div class="project-grid">
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Kubernetes powers the whole trading platform: every service here runs as a pod on EKS.">Kubernetes</span><span data-tip="Grafana is where every dashboard in the observability stack gets built and read.">Grafana</span><span data-tip="Loki is the logging backend that was silently running out of storage in this incident.">Loki</span></div>
+          <h3>Diagnosing a silent storage leak in the observability stack</h3>
+          <p>A logging backend's storage was growing far faster than expected. Traced the root cause to a single workload emitting extremely high-frequency debug-level logs, then retuned ingestion limits and pipeline filtering. Also fixed a mismatched dashboard datasource that had been hiding the real signal.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Kubernetes Gateway API replaced legacy Ingress as the platform's routing layer.">Kubernetes</span><span data-tip="The Gateway API standard (HTTPRoute, TCPRoute, TLSRoute) that Ingress was migrated to.">Gateway API</span><span data-tip="Envoy Gateway is the proxy implementation running behind the Gateway API on this cluster.">Envoy</span></div>
+          <h3>Consolidating a Kubernetes Gateway API footprint</h3>
+          <p>Led the migration from legacy Ingress to the Kubernetes Gateway API, consolidating routing rules across dozens of configuration files behind Envoy Gateway (HTTPRoute, TCPRoute, TLSRoute) and resolving a production issue where proxy-layer interference was breaking database traffic. Cut the number of active listeners by roughly 40% with no service disruption.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Route 53 and on-prem BIND zones were both part of the broken DNS chain here.">Route 53</span><span data-tip="ExternalDNS automates DNS record lifecycle from Kubernetes Service and Ingress resources.">ExternalDNS</span><span data-tip="Cloudflare is the DNS provider ExternalDNS manages records in, as part of the GitOps pipeline.">Cloudflare</span></div>
+          <h3>Tracing a broken DNS chain across a hybrid network</h3>
+          <p>A corporate firewall was silently blocking internal Kubernetes CLI access. Root-caused a multi-day investigation to a gap in DNS forwarding across on-prem and multiple AWS-hosted DNS zones, and specified the fix that restored reliable access.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="AWS IAM Identity Center provides centralized SSO access across the whole AWS organization.">AWS IAM</span><span data-tip="Azure Entra ID is the identity provider, managed as Terraform code.">Azure Entra ID</span><span data-tip="Single sign-on ties Azure Entra ID into AWS and every connected SaaS platform.">SSO</span></div>
+          <h3>Scaling identity and access across 50+ AWS accounts</h3>
+          <p>Supported an AWS IAM Identity Center / SSO architecture providing centralized, auditable access across a large multi-account AWS organization. On the identity provider side, helped manage Azure Entra ID as Terraform code: SSO integrations, SCIM provisioning across multiple SaaS platforms, and Conditional Access policies, so access changes go through code review instead of portal clicks.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Security incident response: log analysis, impact assessment, and remediation.">Security</span><span data-tip="Used CloudWatch Logs Insights and VPC Flow Logs to investigate this incident end to end.">Incident Response</span></div>
+          <h3>Investigating a stored XSS security incident</h3>
+          <p>Used log and network flow analysis to investigate a stored cross-site scripting vulnerability end to end, confirmed that no data had been exfiltrated, and flagged a missing web application firewall as a critical follow-up gap.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="ArgoCD is the GitOps engine driving every deployment on the cluster.">ArgoCD</span><span data-tip="GitOps means Git is the single source of truth for what's running in the cluster.">GitOps</span><span data-tip="Kubernetes-native secrets management via External Secrets Operator sits alongside this GitOps layer.">Kubernetes</span></div>
+          <h3>Operating GitOps at scale with ArgoCD</h3>
+          <p>Operate a GitOps delivery model managing 60+ applications through an App-of-Apps pattern, including automated image updates and Kubernetes-native secrets management via cert-manager and External Secrets Operator. Functions as an internal developer platform in practice: teams add a new service by committing an Application manifest, and ArgoCD picks it up with no platform-team involvement required.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="MiFID II and GDPR are the two regulatory frameworks this architecture was built to satisfy at once.">Compliance</span><span data-tip="AWS KMS customer-managed keys power the per-user crypto-shredding for GDPR data deletion requests.">AWS KMS</span><span data-tip="ClickHouse stores the immutable audit trail this architecture is built around.">ClickHouse</span></div>
+          <h3>Building a MiFID II and GDPR-compliant data architecture</h3>
+          <p>Contributed to a regulatory-reporting architecture built around an immutable ClickHouse audit trail, envelope encryption for personal data with per-user crypto-shredding via AWS KMS, and tiered S3 retention using Object Lock, satisfying MiFID II and GDPR requirements together.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Apache Superset is the BI platform this modernization was centered on.">Apache Superset</span><span data-tip="Airflow orchestrates the PySpark and Python pipelines behind the analytics platform.">Airflow</span><span data-tip="Airbyte handles ETL and ELT ingestion into the data platform.">Airbyte</span></div>
+          <h3>Modernizing the data platform: Superset, Airflow, and Airbyte</h3>
+          <p>Owned the analytics platform end to end: migrated Superset to a containerized Docker setup with Puppet-driven automation, upgraded it from v4.1 to v6.0, and configured Celery and Flower async workers for scheduled reports. Built a Salesforce embedding framework using guest-token authentication and RISON-driven dynamic URLs so dashboards appear natively inside Salesforce, and customized the security manager for group-based SSO access control. Also deployed Airbyte's AWS infrastructure with Terraform and containerized Airflow 2 pipelines, with provisioning automated end to end through GitHub Actions.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="LangChain powered the original hackathon prototype that this production system grew out of.">LangChain</span><span data-tip="AWS Bedrock hosts the production version of this system, years after the original prototype.">AWS Bedrock</span><span data-tip="Retrieval-Augmented Generation: grounding LLM answers in retrieved, private documents instead of memory alone.">RAG</span></div>
+          <h3>From a hackathon prototype to an enterprise RAG platform</h3>
+          <p>Built an incident-severity predictor using LangChain and RAG as a Lab Week project early in my career. Years later, built on that same idea in production: an enterprise RAG platform on AWS Bedrock serving an internal Ops team, this time with real compliance and access-control requirements instead of a weekend demo's worth.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="AWS Bedrock hosts the knowledge base and, via DeepSeek R1, the inference model for this system.">AWS Bedrock</span><span data-tip="OpenSearch Serverless is the vector store the Bedrock Knowledge Base syncs into.">OpenSearch</span><span data-tip="DeepSeek R1 was evaluated against the default model and won out for this specific knowledge domain.">DeepSeek R1</span></div>
+          <h3>Shipping a production RAG knowledge base: real constraints, real fixes</h3>
+          <p>Built the ingestion pipeline for an internal Ops knowledge assistant: pulling Salesforce Knowledge articles via SOQL, converting them to markdown with companion metadata JSON, and syncing into a Bedrock Knowledge Base (OpenSearch Serverless vectors, 600-token chunks with 12% overlap) queried through a private Lambda and API Gateway. Along the way: Bedrock's metadata has reserved keywords, so <code>id</code> and <code>source</code> both silently broke sync until renamed; metadata files cap out at 5 attributes, forcing hard choices about what to keep; and a model hallucination, where the LLM wrongly assumed deposits were available wherever withdrawals were mentioned, was fixed with an explicit prompt constraint rather than more data.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="A production Puppet 5 codebase provisioning core data platform services.">Puppet</span><span data-tip="Hiera 5 provides the environment-specific data layer for the Puppet manifests.">Hiera</span><span data-tip="ERB templates generate config files from Puppet-managed data.">ERB</span></div>
+          <h3>Operating a live Puppet 5 infrastructure codebase</h3>
+          <p>Contribute to a production Puppet 5 codebase (3,200+ commits, 27 contributors) that provisions data platform infrastructure including Airflow, Superset, and internal dashboard services. Author manifests, ERB templates, and Hiera 5 data configurations to keep development and production environments consistent, including scaling worker thread counts and fixing Airflow trigger configurations.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Transit Gateway is the hub-and-spoke routing core connecting the trading cluster to the network account and on-premises systems.">Transit Gateway</span><span data-tip="PrivateLink keeps Bedrock and OpenSearch traffic inside the AWS network.">PrivateLink</span><span data-tip="AWS Network Firewall provides centralized traffic inspection across the multi-account network.">Network Firewall</span></div>
+          <h3>Designing and operating a multi-account AWS network</h3>
+          <p>Manage the AWS-side network architecture for a multi-account trading platform: Transit Gateway as the hub connecting the trading cluster's VPC to the network account and on-premises systems, VPC endpoints for private Bedrock and OpenSearch access, security groups and NACLs scoped per workload tier, and VPC Flow Logs plus AWS Network Firewall for traffic visibility and compliance, all managed in Terraform. The physical Direct Connect and VPN termination sits with the network infrastructure team; my side of the boundary is the TGW routing and VPC attachments that connect to it.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="GitHub Actions runs the CI/CD pipelines this security review covered.">GitHub Actions</span><span data-tip="Trivy scans container images for known vulnerabilities as part of the pipeline.">Trivy</span><span data-tip="SpotBugs is the static analysis tool catching bug patterns in the Java codebase.">SpotBugs</span></div>
+          <h3>Auditing a Java CI/CD security pipeline</h3>
+          <p>Contributed to and helped maintain the CI/CD security posture for a Java 21 multi-module Maven services stack: OWASP/NVD dependency scanning, Trivy container scanning, and SpotBugs static analysis running across the build, release, and deploy workflows. Also identified concrete gaps for the team to close, including an OIDC migration that's declared in the workflows but not yet wired up in favor of static AWS keys, and a SonarQube integration that was started but never finished.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="A single-shot multibox detector (SSD) model for real-time object detection.">Deep Learning</span><span data-tip="Python tied the camera feed, the detection model, and the audio output together.">Python</span><span data-tip="OpenCV handled the camera feed and image processing pipeline.">OpenCV</span></div>
+          <h3>Building an assistive object detection system</h3>
+          <p>A personal project built out of curiosity, well before AI was part of the job description: an SSD-based vision system in Python and OpenCV that detects nearby objects from a mobile camera feed and speaks their name and distance out loud, aimed at helping visually impaired users navigate their surroundings.</p>
+        </article>
       </div>
     </div>
   </section>
