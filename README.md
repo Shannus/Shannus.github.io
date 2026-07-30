@@ -1,7 +1,6 @@
 # Portfolio — Platform Automation backend
 
-A production-patterned serverless backend bolted onto a static GitHub Pages portfolio,
-built to exercise every skill in the "Senior DevOps Engineer (Platform Automation)" JD.
+A production-patterned serverless backend bolted onto a static GitHub Pages portfolio.
 
 - **Two product lines:** `contact` (V1 — API Gateway → Lambda → Postgres) and `status` (V2 — Lambda, no DB).
 - **CI Gate:** GitHub Actions matrix build/test (`vitest`) + `npm audit` + SonarQube quality gate.
