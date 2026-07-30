@@ -31,7 +31,7 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
     margin: 0;
@@ -42,6 +42,8 @@
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     position: relative;
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body::before {
@@ -308,6 +310,26 @@
   }
   .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* Traffic widget */
+  .traffic-strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); position: relative; z-index: 1; }
+  .traffic-strip-inner { max-width: var(--container); margin: 0 auto; padding: 2.5rem 1.5rem; }
+  .traffic-head { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .traffic-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); }
+  .traffic-total-text { margin-left: auto; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); }
+  .traffic-total-text strong { color: var(--accent); font-size: 1.05rem; }
+  .traffic-chart { width: 100%; height: 140px; display: block; overflow: visible; }
+  .traffic-bar { fill: var(--surface-2); stroke: var(--border); stroke-width: 1; }
+  .traffic-bar-today { fill: var(--accent); stroke: var(--accent-strong); }
+  .traffic-bar-label { font-family: var(--font-mono); font-size: 8px; fill: var(--text-faint); }
+  .traffic-caption { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint); margin-top: 0.9rem; }
+  .traffic-error-msg {
+    display: none; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-faint);
+    text-align: center; padding: 2rem 0;
+  }
+  .traffic-strip.traffic-error .traffic-chart,
+  .traffic-strip.traffic-error .traffic-caption { display: none; }
+  .traffic-strip.traffic-error .traffic-error-msg { display: block; }
+
   /* Footer */
   .footer { padding: 2rem 1.5rem; }
   .footer-inner {
@@ -400,6 +422,10 @@
         <span class="stat-num">24/7</span>
         <span class="stat-label">Live trading infrastructure</span>
       </div>
+      <div class="stat">
+        <span class="stat-num">3,200+</span>
+        <span class="stat-label">Commits in production Puppet infrastructure</span>
+      </div>
     </div>
   </section>
 
@@ -424,13 +450,15 @@
           <div class="timeline-content">
             <div class="timeline-head">
               <h3>Platform Engineer</h3>
-              <span class="timeline-date">[Start Date] – Present</span>
+              <span class="timeline-date">Dec 2024 – Present</span>
             </div>
             <span class="timeline-org">Tradu (FXCM / Stratos Group) · Cloud Platform Engineering</span>
             <ul class="timeline-bullets">
               <li>Operate a production AWS EKS cluster, owning platform tooling including ArgoCD, cert-manager, external-dns, and the AWS Load Balancer Controller across network-isolated node groups.</li>
               <li>Own the organization's data platform end to end: modernized Apache Superset, operate Airflow and Airbyte pipelines, and led PoC evaluations of platform tooling for scalability and operational overhead before production rollout.</li>
-              <li>Architected a hybrid on-prem to AWS integration using Site-to-Site VPN, a private API Gateway, and VPC endpoints, enabling secure data sharing between internal systems and cloud services.</li>
+              <li>Architected a hybrid on-prem to AWS integration using a private API Gateway and VPC endpoints, enabling secure data sharing between internal systems and cloud services.</li>
+              <li>Manage multi-account AWS network architecture using Transit Gateway for hub-and-spoke routing between the trading cluster, network account, and on-premises systems, PrivateLink for private access to Bedrock and OpenSearch, and AWS Network Firewall with VPC Flow Logs for traffic inspection and compliance. Physical Direct Connect and VPN termination is owned by the network infrastructure team; I manage the TGW route tables and VPC attachments on the AWS side.</li>
+              <li>Contribute to a production Puppet 5 codebase (3,200+ commits) provisioning data platform infrastructure, including Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.</li>
               <li>Developed a RAG-based internal data discovery API on AWS Bedrock, letting teams query sensitive operational data in natural language with enterprise-grade access controls.</li>
               <li>Built and maintain a full observability stack (Prometheus, Loki, Grafana, Grafana Alloy), tuning ingestion pipelines and right-sizing Kafka consumer throughput under high-volume trading workloads.</li>
               <li>Manage the Kubernetes secrets lifecycle using External Secrets Operator backed by AWS Secrets Manager, covering database, Kafka, Redis, and CloudNativePG bootstrap credentials.</li>
@@ -468,7 +496,7 @@
             <ul class="timeline-bullets">
               <li>Managed alert processing from Kafka data pipelines, implementing high-throughput ETL workflows in Python for large-scale data handling and alert enrichment.</li>
               <li>Developed RESTful APIs using Flask to support data exchange between pipeline components and backend services.</li>
-              <li>Administered a multi-node Kafka cluster handling thousands of alerts per minute, maintaining high availability for continuous streaming workloads.</li>
+              <li>Administered a multi-node Kafka cluster handling thousands of alerts per minute, configuring broker network listeners and firewall policies across the cluster estate to maintain high availability for continuous streaming workloads.</li>
               <li>Designed and deployed a monitoring platform using Prometheus, Grafana, and Filebeat for centralized logging and real-time pipeline observability.</li>
               <li>Administered OpenStack private cloud infrastructure, including compute provisioning, security groups, network policies, and snapshot-based backups across a multi-tenant server estate.</li>
             </ul>
@@ -494,7 +522,7 @@
           <p>Led the migration from legacy Ingress to the Kubernetes Gateway API, consolidating routing rules across dozens of configuration files behind Envoy Gateway (HTTPRoute, TCPRoute, TLSRoute) and resolving a production issue where proxy-layer interference was breaking database traffic. Cut the number of active listeners by roughly 40% with no service disruption.</p>
         </article>
         <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="AWS is the cloud this entire platform runs on, across a multi-account organization.">AWS</span><span data-tip="Route 53 and on-prem BIND zones were both part of the broken DNS chain here.">Route 53</span><span data-tip="Hybrid on-prem-to-AWS networking, also used for Site-to-Site VPN and Private API Gateway integrations.">Networking</span></div>
+          <div class="project-tags"><span data-tip="Route 53 and on-prem BIND zones were both part of the broken DNS chain here.">Route 53</span><span data-tip="ExternalDNS automates DNS record lifecycle from Kubernetes Service and Ingress resources.">ExternalDNS</span><span data-tip="Cloudflare is the DNS provider ExternalDNS manages records in, as part of the GitOps pipeline.">Cloudflare</span></div>
           <h3>Tracing a broken DNS chain across a hybrid network</h3>
           <p>A corporate firewall was silently blocking internal Kubernetes CLI access. Root-caused a multi-day investigation to a gap in DNS forwarding across on-prem and multiple AWS-hosted DNS zones, and specified the fix that restored reliable access.</p>
         </article>
@@ -511,7 +539,7 @@
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="ArgoCD is the GitOps engine driving every deployment on the cluster.">ArgoCD</span><span data-tip="GitOps means Git is the single source of truth for what's running in the cluster.">GitOps</span><span data-tip="Kubernetes-native secrets management via External Secrets Operator sits alongside this GitOps layer.">Kubernetes</span></div>
           <h3>Operating GitOps at scale with ArgoCD</h3>
-          <p>Operate a GitOps delivery model managing 60+ applications through an App-of-Apps pattern, including automated image updates and Kubernetes-native secrets management via cert-manager and External Secrets Operator.</p>
+          <p>Operate a GitOps delivery model managing 60+ applications through an App-of-Apps pattern, including automated image updates and Kubernetes-native secrets management via cert-manager and External Secrets Operator. Functions as an internal developer platform in practice: teams add a new service by committing an Application manifest, and ArgoCD picks it up with no platform-team involvement required.</p>
         </article>
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="MiFID II and GDPR are the two regulatory frameworks this architecture was built to satisfy at once.">Compliance</span><span data-tip="AWS KMS customer-managed keys power the per-user crypto-shredding for GDPR data deletion requests.">AWS KMS</span><span data-tip="ClickHouse stores the immutable audit trail this architecture is built around.">ClickHouse</span></div>
@@ -521,12 +549,32 @@
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="Apache Superset is the BI platform this modernization was centered on.">Apache Superset</span><span data-tip="Airflow orchestrates the PySpark and Python pipelines behind the analytics platform.">Airflow</span><span data-tip="Airbyte handles ETL and ELT ingestion into the data platform.">Airbyte</span></div>
           <h3>Modernizing the data platform: Superset, Airflow, and Airbyte</h3>
-          <p>Owned the analytics platform end to end: migrated Superset to a containerized Docker setup with Puppet-driven automation, upgraded it from v4.1 to v6.0, and built a Salesforce embedding framework using token-based authentication and RISON-driven dynamic URLs. Also deployed Airbyte's AWS infrastructure with Terraform and containerized Airflow 2 pipelines, with provisioning automated end to end through GitHub Actions.</p>
+          <p>Owned the analytics platform end to end: migrated Superset to a containerized Docker setup with Puppet-driven automation, upgraded it from v4.1 to v6.0, and configured Celery and Flower async workers for scheduled reports. Built a Salesforce embedding framework using guest-token authentication and RISON-driven dynamic URLs so dashboards appear natively inside Salesforce, and customized the security manager for group-based SSO access control. Also deployed Airbyte's AWS infrastructure with Terraform and containerized Airflow 2 pipelines, with provisioning automated end to end through GitHub Actions.</p>
         </article>
         <article class="project-card reveal">
-          <div class="project-tags"><span data-tip="LangChain powered both the original hackathon prototype and the production RAG pipeline years later.">LangChain</span><span data-tip="AWS Bedrock (Claude and Titan models) hosts the production version of this system.">AWS Bedrock</span><span data-tip="Retrieval-Augmented Generation: grounding LLM answers in retrieved, private documents instead of memory alone.">RAG</span></div>
+          <div class="project-tags"><span data-tip="LangChain powered the original hackathon prototype that this production system grew out of.">LangChain</span><span data-tip="AWS Bedrock hosts the production version of this system, years after the original prototype.">AWS Bedrock</span><span data-tip="Retrieval-Augmented Generation: grounding LLM answers in retrieved, private documents instead of memory alone.">RAG</span></div>
           <h3>From a hackathon prototype to an enterprise RAG platform</h3>
-          <p>Built an incident-severity predictor using LangChain and RAG as a Lab Week project early in my career. Years later, built on that same idea in production: an enterprise RAG platform on AWS Bedrock, with a document ingestion pipeline using Titan Embeddings, a knowledge base in OpenSearch Serverless, and a private Lambda and API Gateway layer reachable only inside the VPC via PrivateLink, with CloudTrail logging every inference call for compliance.</p>
+          <p>Built an incident-severity predictor using LangChain and RAG as a Lab Week project early in my career. Years later, built on that same idea in production: an enterprise RAG platform on AWS Bedrock serving an internal Ops team, this time with real compliance and access-control requirements instead of a weekend demo's worth.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="AWS Bedrock hosts the knowledge base and, via DeepSeek R1, the inference model for this system.">AWS Bedrock</span><span data-tip="OpenSearch Serverless is the vector store the Bedrock Knowledge Base syncs into.">OpenSearch</span><span data-tip="DeepSeek R1 was evaluated against the default model and won out for this specific knowledge domain.">DeepSeek R1</span></div>
+          <h3>Shipping a production RAG knowledge base: real constraints, real fixes</h3>
+          <p>Built the ingestion pipeline for an internal Ops knowledge assistant: pulling Salesforce Knowledge articles via SOQL, converting them to markdown with companion metadata JSON, and syncing into a Bedrock Knowledge Base (OpenSearch Serverless vectors, 600-token chunks with 12% overlap) queried through a private Lambda and API Gateway. Along the way: Bedrock's metadata has reserved keywords, so <code>id</code> and <code>source</code> both silently broke sync until renamed; metadata files cap out at 5 attributes, forcing hard choices about what to keep; and a model hallucination, where the LLM wrongly assumed deposits were available wherever withdrawals were mentioned, was fixed with an explicit prompt constraint rather than more data.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="A production Puppet 5 codebase provisioning core data platform services.">Puppet</span><span data-tip="Hiera 5 provides the environment-specific data layer for the Puppet manifests.">Hiera</span><span data-tip="ERB templates generate config files from Puppet-managed data.">ERB</span></div>
+          <h3>Operating a live Puppet 5 infrastructure codebase</h3>
+          <p>Contribute to a production Puppet 5 codebase (3,200+ commits, 27 contributors) that provisions data platform infrastructure including Airflow, Superset, and internal dashboard services. Author manifests, ERB templates, and Hiera 5 data configurations to keep development and production environments consistent, including scaling worker thread counts and fixing Airflow trigger configurations.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="Transit Gateway is the hub-and-spoke routing core connecting the trading cluster to the network account and on-premises systems.">Transit Gateway</span><span data-tip="PrivateLink keeps Bedrock and OpenSearch traffic inside the AWS network.">PrivateLink</span><span data-tip="AWS Network Firewall provides centralized traffic inspection across the multi-account network.">Network Firewall</span></div>
+          <h3>Designing and operating a multi-account AWS network</h3>
+          <p>Manage the AWS-side network architecture for a multi-account trading platform: Transit Gateway as the hub connecting the trading cluster's VPC to the network account and on-premises systems, VPC endpoints for private Bedrock and OpenSearch access, security groups and NACLs scoped per workload tier, and VPC Flow Logs plus AWS Network Firewall for traffic visibility and compliance, all managed in Terraform. The physical Direct Connect and VPN termination sits with the network infrastructure team; my side of the boundary is the TGW routing and VPC attachments that connect to it.</p>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-tags"><span data-tip="GitHub Actions runs the CI/CD pipelines this security review covered.">GitHub Actions</span><span data-tip="Trivy scans container images for known vulnerabilities as part of the pipeline.">Trivy</span><span data-tip="SpotBugs is the static analysis tool catching bug patterns in the Java codebase.">SpotBugs</span></div>
+          <h3>Auditing a Java CI/CD security pipeline</h3>
+          <p>Contributed to and helped maintain the CI/CD security posture for a Java 21 multi-module Maven services stack: OWASP/NVD dependency scanning, Trivy container scanning, and SpotBugs static analysis running across the build, release, and deploy workflows. Also identified concrete gaps for the team to close, including an OIDC migration that's declared in the workflows but not yet wired up in favor of static AWS keys, and a SonarQube integration that was started but never finished.</p>
         </article>
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="A single-shot multibox detector (SSD) model for real-time object detection.">Deep Learning</span><span data-tip="Python tied the camera feed, the detection model, and the audio output together.">Python</span><span data-tip="OpenCV handled the camera feed and image processing pipeline.">OpenCV</span></div>
@@ -546,11 +594,11 @@
         <div class="skill-group reveal">
           <h4>Cloud &amp; Infrastructure</h4>
           <div class="tag-row">
-            <span data-tip="Own the full lifecycle of a production EKS 1.35 cluster: RBAC, security contexts, node groups, and live incident response for a trading platform.">AWS EKS</span>
+            <span data-tip="Own the full lifecycle of a production EKS 1.35 cluster: RBAC, security contexts, node groups, CloudNativePG, Strimzi, Keycloak, and Envoy Gateway all run on it.">AWS EKS</span>
             <span data-tip="Administer AWS IAM Identity Center and SSO access across 50+ accounts as the org's platform admin.">IAM &amp; SSO</span>
             <span data-tip="Traced a multi-day DNS gap spanning on-prem BIND and multiple AWS-hosted Route 53 zones.">Route 53</span>
             <span data-tip="Built a centralized multi-account ECR with lifecycle policies, OIDC push roles, and a pull-through cache.">ECR</span>
-            <span data-tip="Designed VPC endpoints and PrivateLink access so internal and AI workloads never touch the public internet.">VPC</span>
+            <span data-tip="Designed multi-account VPC architecture: three-tier subnets, security group policies, Transit Gateway for cross-account routing, VPC Flow Logs for traffic visibility, and endpoints for private Bedrock and OpenSearch access.">VPC</span>
             <span data-tip="Used CloudWatch Logs Insights and metrics to investigate everything from IAM issues to a security incident.">CloudWatch</span>
             <span data-tip="Author Terraform Enterprise modules for EKS and platform infrastructure across a multi-account AWS org.">Terraform</span>
             <span data-tip="Built the Lambda functions behind the Superset embedding API and the Bedrock RAG data-discovery service.">Lambda</span>
@@ -569,6 +617,9 @@
             <span data-tip="Operated legacy Ingress before leading its replacement with the Kubernetes Gateway API.">Ingress</span>
             <span data-tip="Automated recurring platform maintenance and token refreshes with Kubernetes CronJobs.">Jobs &amp; CronJobs</span>
             <span data-tip="Packaged platform tooling and ML inference services as Helm charts and custom manifests.">Helm</span>
+            <span data-tip="Operate PostgreSQL HA clusters on EKS via CloudNativePG, including PVC resizing, ESO-backed bootstrap secrets, and live failover.">CloudNativePG</span>
+            <span data-tip="Run Kafka in KRaft mode on EKS via the Strimzi operator: topic configuration, consumer group management, and lag monitoring in Grafana.">Strimzi</span>
+            <span data-tip="Run Keycloak in-cluster for JWT issuance and OAuth 2.0 client credentials, covering both user and service-to-service authentication.">Keycloak</span>
           </div>
         </div>
         <div class="skill-group reveal">
@@ -577,8 +628,8 @@
             <span data-tip="Run an App-of-Apps GitOps pattern managing 60+ applications as the platform's deployment layer.">ArgoCD</span>
             <span data-tip="Designed the root-app bootstrap pattern that recreates every child Application automatically from Git.">App-of-Apps</span>
             <span data-tip="Automated image promotion with IRSA-based ECR auth, removing manual deployment steps for app teams.">Image Updater</span>
-            <span data-tip="Built OIDC-based push roles for ECR and automated Airbyte's infrastructure provisioning end to end.">GitHub Actions</span>
-            <span data-tip="Automated Superset's Docker Compose deployment and configuration consistency across environments.">Puppet</span>
+            <span data-tip="Built OIDC-based GitHub Actions pipelines for ECR pushes, Terraform plan/apply, and Airbyte provisioning, using short-lived STS credentials for those flows. Every Terraform plan diff posts to the PR before apply.">GitHub Actions</span>
+            <span data-tip="Contribute to a production Puppet 5 codebase (3,200+ commits, 27 contributors) managing Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.">Puppet</span>
           </div>
         </div>
         <div class="skill-group reveal">
@@ -587,7 +638,8 @@
             <span data-tip="Build and maintain the dashboards and alerting behind the platform's entire observability stack.">Grafana</span>
             <span data-tip="Designed a monitoring platform from scratch at Comcast, then operated it at trading-platform scale at Tradu.">Prometheus</span>
             <span data-tip="Diagnosed a Loki ingestion saturation issue caused by a workload logging at debug level under trading traffic.">Loki</span>
-            <span data-tip="Planning the Promtail-to-Alloy migration ahead of Promtail's end of life.">Grafana Alloy</span>
+            <span data-tip="Deployed as the OpenTelemetry collector pipeline: receives metrics, logs, and traces and routes them to Prometheus, Loki, and Tempo. Also planning the Promtail-to-Alloy migration ahead of Promtail's end of life.">Grafana Alloy</span>
+            <span data-tip="Planned as the distributed tracing backend completing the observability trio alongside Prometheus and Loki, with Grafana linking log entries directly to their trace.">Tempo</span>
             <span data-tip="Used daily to trace incidents from a metric anomaly back to root cause.">PromQL</span>
             <span data-tip="Used daily to search and correlate logs across every namespace on the cluster.">LogQL</span>
             <span data-tip="Deployed Filebeat-based centralized logging for infrastructure and pipeline observability at Comcast.">ELK Stack</span>
@@ -622,13 +674,15 @@
             <span data-tip="Owned Superset end to end: migrated it to Docker, upgraded v4.1 to v6.0, and built a Salesforce embedding framework.">Apache Superset</span>
             <span data-tip="Diagnosed DAG execution bottlenecks through metrics analysis and containerized Airflow 2 with Docker Compose.">Airflow</span>
             <span data-tip="Designed and deployed Airbyte's AWS infrastructure with Terraform, provisioned end to end via GitHub Actions.">Airbyte</span>
-            <span data-tip="Administered multi-node clusters handling thousands of messages a minute, then right-sized consumer throughput using Grafana lag tracking.">Kafka</span>
+            <span data-tip="Run Kafka in KRaft mode via Strimzi on EKS, right-sizing consumer throughput by tracking consumer lag in Grafana. At Comcast, administered a multi-node cluster handling thousands of alert events per minute.">Kafka</span>
             <span data-tip="Built pipelines on Hadoop, processing Kafka streams and moving data from Cassandra into MySQL at scale.">PySpark</span>
             <span data-tip="Ran PySpark transformations inside a Hadoop environment, applying RDDs and DataFrames to large datasets.">Hadoop</span>
             <span data-tip="Source database for PySpark ETL pipelines feeding downstream MySQL reporting tables.">Cassandra</span>
             <span data-tip="Backbone of an immutable audit trail for MiFID II-compliant regulatory reporting.">ClickHouse</span>
             <span data-tip="Built RESTful APIs to move data between pipeline components and backend services.">Flask</span>
             <span data-tip="Backing stores for ETL pipelines, CNPG-managed databases, and reporting tables.">MySQL &amp; PostgreSQL</span>
+            <span data-tip="Operate Redis as a caching and session layer on EKS, migrated to External Secrets Operator as part of the platform secrets migration.">Redis</span>
+            <span data-tip="Operate TimescaleDB via CloudNativePG for trading workload time-series data, alongside ClickHouse for the audit trail.">TimescaleDB</span>
           </div>
         </div>
         <div class="skill-group reveal">
@@ -636,7 +690,7 @@
           <div class="tag-row">
             <span data-tip="Built a LangChain-based incident predictor as a Lab Week project, later extended into a production RAG platform.">LangChain</span>
             <span data-tip="Designed full retrieval pipelines: chunking, embeddings, vector storage, and grounded generation.">RAG</span>
-            <span data-tip="Built an enterprise RAG platform on Bedrock (Claude and Titan models) with VPC-only access via PrivateLink.">AWS Bedrock</span>
+            <span data-tip="Built an enterprise RAG platform on Bedrock using Titan Embeddings for vectors and DeepSeek R1 for inference, with VPC-only access via PrivateLink.">AWS Bedrock</span>
             <span data-tip="Generated vector embeddings for a document knowledge base stored in OpenSearch Serverless.">Titan Embeddings</span>
             <span data-tip="Vector backend for the Bedrock knowledge base, queried through hybrid retrieval.">OpenSearch</span>
             <span data-tip="Used both Azure AI Vector Store and OpenSearch Serverless as backends for two different RAG systems.">Vector Databases</span>
@@ -652,9 +706,22 @@
             <span data-tip="Local scripting environment for Windows-based cluster access, alongside AWS CloudShell for in-VPC work.">PowerShell</span>
             <span data-tip="Wrote modules and AWX playbooks for datacenter switchover automation, hitting a 2 to 5 minute RTO.">Ansible</span>
             <span data-tip="Version control for every Terraform, GitOps, and application repo across the platform.">Git</span>
-            <span data-tip="Administered a private cloud: compute provisioning, security groups, and snapshot backups for a multi-tenant estate.">OpenStack</span>
+            <span data-tip="Administered a private cloud: compute provisioning, security groups, and snapshot backups for a multi-tenant estate, using Terraform for VM provisioning and Ansible for configuration management.">OpenStack</span>
             <span data-tip="Tracked platform work end to end, from ticket to PR to production rollout.">Jira</span>
             <span data-tip="Additional language from an academic and early-career foundation.">C++</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Network Engineering</h4>
+          <div class="tag-row">
+            <span data-tip="Manage TGW route tables and VPC attachments across a multi-account hub-and-spoke network, connecting the trading cluster to the network account and on-premises systems.">Transit Gateway</span>
+            <span data-tip="Implemented VPC endpoints for Bedrock and OpenSearch Serverless so AI workload traffic stays inside the AWS network and never crosses the public internet.">PrivateLink</span>
+            <span data-tip="Understand the hybrid connectivity architecture and manage the Transit Gateway routing side of it; the network infrastructure team owns the physical Direct Connect termination.">Direct Connect</span>
+            <span data-tip="Understand the hybrid connectivity architecture and manage the Transit Gateway routing side of it; the network infrastructure team owns the VPN termination itself.">Site-to-Site VPN</span>
+            <span data-tip="Worked with AWS Network Firewall, configured in Terraform, for traffic inspection and compliance enforcement across a multi-account environment.">Network Firewall</span>
+            <span data-tip="Enabled and queried VPC Flow Logs for security incident investigation and compliance audit evidence across the trading platform network.">VPC Flow Logs</span>
+            <span data-tip="Define security group rules for EKS node groups, databases, and load balancers, scoped per workload tier; use NACLs for subnet-level blast radius control.">Security Groups &amp; NACLs</span>
+            <span data-tip="Automated DNS record management via ExternalDNS and Cloudflare, covering the hybrid DNS requirement in practice.">Hybrid DNS</span>
           </div>
         </div>
       </div>
@@ -701,6 +768,19 @@
   </section>
 </main>
 
+<section class="traffic-strip reveal" id="trafficWidget">
+  <div class="traffic-strip-inner">
+    <div class="traffic-head">
+      <span class="dot dot-green pulse"></span>
+      <span class="traffic-label">SITE TRAFFIC</span>
+      <span class="traffic-total-text"><strong id="trafficTotal">...</strong> total visits</span>
+    </div>
+    <svg id="trafficChart" class="traffic-chart" viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="Visits over the last 14 days"></svg>
+    <p class="traffic-caption">Last 14 days · counted client-side, no cookies</p>
+    <p class="traffic-error-msg">Traffic data isn't loading right now. The counting service may be unreachable.</p>
+  </div>
+</section>
+
 <footer class="footer">
   <div class="footer-inner">
     <span>© 2026 Shanmugam Sundar</span>
@@ -724,7 +804,7 @@
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll('.section .reveal').forEach(function (el) { observer.observe(el); });
+  document.querySelectorAll('.section .reveal, .traffic-strip.reveal').forEach(function (el) { observer.observe(el); });
 
   // Mobile nav toggle
   var toggle = document.getElementById('navToggle');
@@ -770,6 +850,78 @@
   document.addEventListener('click', function () {
     tipEls.forEach(function (o) { o.classList.remove('tip-active'); });
   });
+
+  // Site traffic widget: CounterAPI v1, keyless and public by design, so nothing secret is ever exposed here
+  (function () {
+    var NAMESPACE = 'shannus-portfolio';
+    var API = 'https://api.counterapi.dev/v1/' + NAMESPACE + '/';
+    var DAYS = 14;
+    var widget = document.getElementById('trafficWidget');
+    var chartEl = document.getElementById('trafficChart');
+    var totalEl = document.getElementById('trafficTotal');
+    if (!widget || !chartEl) return;
+
+    function dateKey(d) {
+      return d.toISOString().slice(0, 10);
+    }
+    // Returns the parsed JSON on success, or null on ANY failure (network, CORS, bad status, bad body).
+    // null is treated as "unknown", never silently coerced into a real 0, so a dead API can't masquerade as real zero-visit data.
+    function safeFetchJSON(url) {
+      return fetch(url).then(function (r) {
+        if (!r.ok) return null;
+        return r.json().catch(function () { return null; });
+      }).catch(function () { return null; });
+    }
+
+    var today = new Date();
+    var labels = [];
+    var dayPromises = [];
+    for (var i = DAYS - 1; i >= 0; i--) {
+      var d = new Date(today);
+      d.setDate(d.getDate() - i);
+      var key = dateKey(d);
+      labels.push(i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' }));
+      dayPromises.push(i === 0 ? safeFetchJSON(API + 'visits-' + key + '/up') : safeFetchJSON(API + 'visits-' + key));
+    }
+    var totalPromise = safeFetchJSON(API + 'visits-total/up');
+
+    Promise.all(dayPromises.concat([totalPromise])).then(function (results) {
+      var dayResults = results.slice(0, DAYS);
+      var totalResult = results[DAYS];
+      var failedCount = dayResults.filter(function (r) { return r === null; }).length;
+
+      // If most/all day requests failed, the service is unreachable (down, blocked, CORS misconfigured, etc.)
+      // Show the honest "unavailable" state rather than a fabricated all-zero chart.
+      if (failedCount >= DAYS - 1) {
+        widget.classList.add('traffic-error');
+        return;
+      }
+
+      var counts = dayResults.map(function (r) { return (r && typeof r.count === 'number') ? r.count : 0; });
+      var max = Math.max.apply(null, counts.concat([1]));
+
+      if (totalEl) {
+        var totalCount = (totalResult && typeof totalResult.count === 'number') ? totalResult.count : null;
+        totalEl.textContent = totalCount !== null ? totalCount.toLocaleString() : '...';
+      }
+
+      var w = 700, h = 160, padBottom = 22, padTop = 8, barGap = 6;
+      var barW = (w - barGap * (DAYS - 1)) / DAYS;
+      var parts = [];
+      for (var j = 0; j < DAYS; j++) {
+        var val = counts[j];
+        var barH = Math.max((val / max) * (h - padBottom - padTop), val > 0 ? 4 : 2);
+        var x = j * (barW + barGap);
+        var y = h - padBottom - barH;
+        var isToday = j === DAYS - 1;
+        parts.push('<rect class="traffic-bar' + (isToday ? ' traffic-bar-today' : '') + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + barH.toFixed(1) + '" rx="3"><title>' + labels[j] + ': ' + val + ' visit' + (val === 1 ? '' : 's') + '</title></rect>');
+        parts.push('<text class="traffic-bar-label" x="' + (x + barW / 2).toFixed(1) + '" y="' + (h - 6) + '" text-anchor="middle">' + labels[j] + '</text>');
+      }
+      chartEl.innerHTML = parts.join('');
+    }).catch(function () {
+      widget.classList.add('traffic-error');
+    });
+  })();
 </script>
 </body>
 </html>
