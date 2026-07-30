@@ -422,10 +422,6 @@
         <span class="stat-num">24/7</span>
         <span class="stat-label">Live trading infrastructure</span>
       </div>
-      <div class="stat">
-        <span class="stat-num">3,200+</span>
-        <span class="stat-label">Commits in production Puppet infrastructure</span>
-      </div>
     </div>
   </section>
 
@@ -458,7 +454,7 @@
               <li>Own the organization's data platform end to end: modernized Apache Superset, operate Airflow and Airbyte pipelines, and led PoC evaluations of platform tooling for scalability and operational overhead before production rollout.</li>
               <li>Architected a hybrid on-prem to AWS integration using a private API Gateway and VPC endpoints, enabling secure data sharing between internal systems and cloud services.</li>
               <li>Manage multi-account AWS network architecture using Transit Gateway for hub-and-spoke routing between the trading cluster, network account, and on-premises systems, PrivateLink for private access to Bedrock and OpenSearch, and AWS Network Firewall with VPC Flow Logs for traffic inspection and compliance. Physical Direct Connect and VPN termination is owned by the network infrastructure team; I manage the TGW route tables and VPC attachments on the AWS side.</li>
-              <li>Contribute to a production Puppet 5 codebase (3,200+ commits) provisioning data platform infrastructure, including Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.</li>
+              <li>Contribute to a production Puppet 5 codebase provisioning data platform infrastructure, including Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.</li>
               <li>Developed a RAG-based internal data discovery API on AWS Bedrock, letting teams query sensitive operational data in natural language with enterprise-grade access controls.</li>
               <li>Built and maintain a full observability stack (Prometheus, Loki, Grafana, Grafana Alloy), tuning ingestion pipelines and right-sizing Kafka consumer throughput under high-volume trading workloads.</li>
               <li>Manage the Kubernetes secrets lifecycle using External Secrets Operator backed by AWS Secrets Manager, covering database, Kafka, Redis, and CloudNativePG bootstrap credentials.</li>
@@ -550,7 +546,7 @@
             <span data-tip="Designed the root-app bootstrap pattern that recreates every child Application automatically from Git.">App-of-Apps</span>
             <span data-tip="Automated image promotion with IRSA-based ECR auth, removing manual deployment steps for app teams.">Image Updater</span>
             <span data-tip="Built OIDC-based GitHub Actions pipelines for ECR pushes, Terraform plan/apply, and Airbyte provisioning, using short-lived STS credentials for those flows. Every Terraform plan diff posts to the PR before apply.">GitHub Actions</span>
-            <span data-tip="Contribute to a production Puppet 5 codebase (3,200+ commits, 27 contributors) managing Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.">Puppet</span>
+            <span data-tip="Contribute to a production Puppet 5 codebase managing Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.">Puppet</span>
           </div>
         </div>
         <div class="skill-group reveal">
@@ -707,7 +703,7 @@
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="A production Puppet 5 codebase provisioning core data platform services.">Puppet</span><span data-tip="Hiera 5 provides the environment-specific data layer for the Puppet manifests.">Hiera</span><span data-tip="ERB templates generate config files from Puppet-managed data.">ERB</span></div>
           <h3>Operating a live Puppet 5 infrastructure codebase</h3>
-          <p>Contribute to a production Puppet 5 codebase (3,200+ commits, 27 contributors) that provisions data platform infrastructure including Airflow, Superset, and internal dashboard services. Author manifests, ERB templates, and Hiera 5 data configurations to keep development and production environments consistent, including scaling worker thread counts and fixing Airflow trigger configurations.</p>
+          <p>Contribute to a production Puppet 5 codebase that provisions data platform infrastructure including Airflow, Superset, and internal dashboard services. Author manifests, ERB templates, and Hiera 5 data configurations to keep development and production environments consistent, including scaling worker thread counts and fixing Airflow trigger configurations.</p>
         </article>
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="Transit Gateway is the hub-and-spoke routing core connecting the trading cluster to the network account and on-premises systems.">Transit Gateway</span><span data-tip="PrivateLink keeps Bedrock and OpenSearch traffic inside the AWS network.">PrivateLink</span><span data-tip="AWS Network Firewall provides centralized traffic inspection across the multi-account network.">Network Firewall</span></div>
@@ -802,7 +798,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.01, rootMargin: '0px 0px -8% 0px' });
 
   document.querySelectorAll('.section .reveal, .traffic-strip.reveal').forEach(function (el) { observer.observe(el); });
 
