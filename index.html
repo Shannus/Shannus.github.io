@@ -849,8 +849,8 @@
       <span class="traffic-label">SITE TRAFFIC</span>
       <span class="traffic-total-text"><strong id="trafficTotal">...</strong> total visits</span>
     </div>
-    <svg id="trafficChart" class="traffic-chart" viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="Visits broken down by day of the week"></svg>
-    <p class="traffic-caption">Visits by day of week · counted client-side, no cookies</p>
+    <svg id="trafficChart" class="traffic-chart" viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="Visits over the last 7 days"></svg>
+    <p class="traffic-caption">Visits over the last 7 days · counted client-side, no cookies</p>
     <p class="traffic-error-msg">Traffic data isn't loading right now. The counting service may be unreachable.</p>
   </div>
 </section>
@@ -890,8 +890,6 @@
   <div class="footer-inner">
     <span>© 2026 Shanmugam Sundar</span>
     <span>Chennai, India</span>
-    <span style="width:100%;text-align:center;color:var(--text-faint);">Privacy-friendly visit counter (CounterAPI) · no cookies, no personal data collected</span>
-  </div>
   </div>
 </footer>
 
@@ -958,12 +956,13 @@
     tipEls.forEach(function (o) { o.classList.remove('tip-active'); });
   });
 
-  // Site traffic widget: CounterAPI v2 (keyless public counter, so nothing secret is ever exposed here).
-  // On load it counts one visit (/up) and reads the weekday breakdown (/stats) for the chart.
+  // Site traffic widget: CounterAPI v1 (keyless, public, auto-creating, no account or workspace needed).
+  // A stable namespace holds one running "total" counter plus one counter per calendar day, so we can
+  // draw a real rolling 7-day chart. Nothing secret is ever exposed; it's just an anonymous tally.
   (function () {
-    var WORKSPACE = 'shannus-portfolio';
-    var COUNTER = 'views';
-    var BASE = 'https://api.counterapi.dev/v2/' + WORKSPACE + '/' + COUNTER;
+    var NAMESPACE = 'shannus-portfolio';
+    var API = 'https://api.counterapi.dev/v1/' + NAMESPACE + '/';
+    var DAYS = 7;
     var widget = document.getElementById('trafficWidget');
     var chartEl = document.getElementById('trafficChart');
     var totalEl = document.getElementById('trafficTotal');
@@ -978,47 +977,50 @@
       }).catch(function () { return null; });
     }
 
-    // Count this visit (also returns the fresh total), then pull stats for the weekday chart.
-    Promise.all([
-      safeFetchJSON(BASE + '/up'),
-      safeFetchJSON(BASE + '/stats')
-    ]).then(function (results) {
-      var upRes = results[0];
-      var statsRes = results[1];
+    // Local YYYY-MM-DD (used as each day's counter name, e.g. day-2026-08-03).
+    function dayKey(d) {
+      var y = d.getFullYear();
+      var m = String(d.getMonth() + 1).padStart(2, '0');
+      var day = String(d.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + day;
+    }
 
-      // Both failed -> the service is unreachable. Show the honest "unavailable" state.
-      if (!upRes && !statsRes) {
+    var today = new Date();
+    var labels = [];      // short weekday labels, oldest -> newest
+    var dayRequests = []; // one request per day in the window
+
+    for (var i = DAYS - 1; i >= 0; i--) {
+      var d = new Date(today);
+      d.setDate(d.getDate() - i);
+      labels.push(i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' }));
+      // Only TODAY is incremented (/up, which also auto-creates it); past days are read-only (/).
+      var url = API + 'day-' + dayKey(d) + (i === 0 ? '/up' : '/');
+      dayRequests.push(safeFetchJSON(url));
+    }
+    // One running total for the big number, incremented once per load.
+    var totalRequest = safeFetchJSON(API + 'total/up');
+
+    Promise.all(dayRequests.concat([totalRequest])).then(function (results) {
+      var dayResults = results.slice(0, DAYS);
+      var totalResult = results[DAYS];
+
+      // If every request failed, the service is unreachable -> honest "unavailable" state.
+      var allFailed = totalResult === null && dayResults.every(function (r) { return r === null; });
+      if (allFailed) {
         widget.classList.add('traffic-error');
         return;
       }
 
-      // Total visits: prefer the up_count from whichever call returned it.
-      var total = null;
-      if (upRes && upRes.data && typeof upRes.data.up_count === 'number') {
-        total = upRes.data.up_count;
-      } else if (statsRes && statsRes.data && typeof statsRes.data.up_count === 'number') {
-        total = statsRes.data.up_count;
-      }
+      // v1 returns the value in "count". A read on a never-created past day 404s -> null -> 0 visits (real).
+      var counts = dayResults.map(function (r) {
+        return (r && typeof r.count === 'number') ? r.count : 0;
+      });
+      var total = (totalResult && typeof totalResult.count === 'number') ? totalResult.count : null;
       if (totalEl) totalEl.textContent = total !== null ? total.toLocaleString() : '...';
 
-      // Weekday breakdown from stats (Mon..Sun). If stats is missing, hide the chart but keep the total.
-      var weekdays = statsRes && statsRes.data && statsRes.data.stats && statsRes.data.stats.temporal
-        ? statsRes.data.stats.temporal.weekdays : null;
-      if (!weekdays) {
-        chartEl.style.display = 'none';
-        return;
-      }
-
-      var order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-      var shortLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-      var todayName = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date().getDay()];
-      var counts = order.map(function (d) {
-        return (weekdays[d] && typeof weekdays[d].up === 'number') ? weekdays[d].up : 0;
-      });
       var max = Math.max.apply(null, counts.concat([1]));
-
       var w = 700, h = 160, padBottom = 22, padTop = 8, barGap = 10;
-      var n = order.length;
+      var n = DAYS;
       var barW = (w - barGap * (n - 1)) / n;
       var parts = [];
       for (var j = 0; j < n; j++) {
@@ -1026,9 +1028,9 @@
         var barH = Math.max((val / max) * (h - padBottom - padTop), val > 0 ? 4 : 2);
         var x = j * (barW + barGap);
         var y = h - padBottom - barH;
-        var isToday = order[j] === todayName;
-        parts.push('<rect class="traffic-bar' + (isToday ? ' traffic-bar-today' : '') + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + barH.toFixed(1) + '" rx="3"><title>' + shortLabels[j] + ': ' + val + ' visit' + (val === 1 ? '' : 's') + '</title></rect>');
-        parts.push('<text class="traffic-bar-label" x="' + (x + barW / 2).toFixed(1) + '" y="' + (h - 6) + '" text-anchor="middle">' + shortLabels[j] + '</text>');
+        var isToday = j === n - 1;
+        parts.push('<rect class="traffic-bar' + (isToday ? ' traffic-bar-today' : '') + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + barH.toFixed(1) + '" rx="3"><title>' + labels[j] + ': ' + val + ' visit' + (val === 1 ? '' : 's') + '</title></rect>');
+        parts.push('<text class="traffic-bar-label" x="' + (x + barW / 2).toFixed(1) + '" y="' + (h - 6) + '" text-anchor="middle">' + labels[j] + '</text>');
       }
       chartEl.innerHTML = parts.join('');
     }).catch(function () {
