@@ -1,6 +1,0 @@
-name: portfolio-app
-runtime: nodejs
-description: >
-  Application-layer resources (owned by app devs) that consume the foundational
-  Terraform outputs. Demonstrates the JD's "pass Terraform variables cleanly into
-  application-level Pulumi (TypeScript)" collaboration pattern. OPTIONAL / stretch.

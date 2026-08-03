@@ -1,7 +1,0 @@
-config:
-  aws:region: us-east-1
-  portfolio-app:tenant: public
-  portfolio-app:environment: dev
-  # S3 backend that Terraform writes its state to (foundational layer):
-  portfolio-app:tfStateBucket: REPLACE-with-your-tfstate-bucket
-  portfolio-app:tfStateKey: portfolio/terraform.tfstate

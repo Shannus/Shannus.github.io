@@ -528,15 +528,15 @@
             </div>
             <span class="timeline-org">Tradu (FXCM / Stratos Group) · Cloud Platform Engineering</span>
             <ul class="timeline-bullets">
-              <li>Operated a production AWS EKS cluster, owning platform tooling including ArgoCD, cert-manager, external-dns, and the AWS Load Balancer Controller across network-isolated node groups.</li>
-              <li>Owned the organization's data platform end to end: modernized Apache Superset, operate Airflow and Airbyte pipelines, and led PoC evaluations of platform tooling for scalability and operational overhead before production rollout.</li>
+              <li>Operate a production AWS EKS cluster, owning platform tooling including ArgoCD, cert-manager, external-dns, and the AWS Load Balancer Controller across network-isolated node groups.</li>
+              <li>Own the organization's data platform end to end: modernized Apache Superset, operate Airflow and Airbyte pipelines, and led PoC evaluations of platform tooling for scalability and operational overhead before production rollout.</li>
               <li>Architected a hybrid on-prem to AWS integration using a private API Gateway and VPC endpoints, enabling secure data sharing between internal systems and cloud services.</li>
-              <li>Managed multi-account AWS network architecture using Transit Gateway for hub-and-spoke routing between the trading cluster, network account, and on-premises systems, PrivateLink for private access to Bedrock and OpenSearch, TGW route tables and VPC attachments on the AWS side and AWS Network Firewall with VPC Flow Logs for traffic inspection and compliance.</li>
-              <li>Contributed to a production Puppet 5 codebase provisioning data platform infrastructure, including Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.</li>
+              <li>Manage multi-account AWS network architecture using Transit Gateway for hub-and-spoke routing between the trading cluster, network account, and on-premises systems, PrivateLink for private access to Bedrock and OpenSearch, and AWS Network Firewall with VPC Flow Logs for traffic inspection and compliance. Physical Direct Connect and VPN termination is owned by the network infrastructure team; I manage the TGW route tables and VPC attachments on the AWS side.</li>
+              <li>Contribute to a production Puppet 5 codebase provisioning data platform infrastructure, including Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.</li>
               <li>Developed a RAG-based internal data discovery API on AWS Bedrock, letting teams query sensitive operational data in natural language with enterprise-grade access controls.</li>
-              <li>Built and maintaind a full observability stack (Prometheus, Loki, Grafana, Grafana Alloy), tuning ingestion pipelines and right-sizing Kafka consumer throughput under high-volume trading workloads.</li>
-              <li>Managed the Kubernetes secrets lifecycle using External Secrets Operator backed by AWS Secrets Manager, covering database, Kafka, Redis, and CloudNativePG bootstrap credentials.</li>
-              <li>Managed Azure Entra ID identity infrastructure as Terraform code, including SSO integrations, SCIM provisioning across multiple SaaS platforms, and IAM Identity Center access across 50+ AWS accounts.</li>
+              <li>Built and maintain a full observability stack (Prometheus, Loki, Grafana, Grafana Alloy), tuning ingestion pipelines and right-sizing Kafka consumer throughput under high-volume trading workloads.</li>
+              <li>Manage the Kubernetes secrets lifecycle using External Secrets Operator backed by AWS Secrets Manager, covering database, Kafka, Redis, and CloudNativePG bootstrap credentials.</li>
+              <li>Manage Azure Entra ID identity infrastructure as Terraform code, including SSO integrations, SCIM provisioning across multiple SaaS platforms, and IAM Identity Center access across 50+ AWS accounts.</li>
               <li>Contributed to a MiFID II and GDPR-compliant data architecture for regulatory reporting, covering immutable audit trail storage, envelope encryption for personal data, and tiered S3 retention with Object Lock.</li>
             </ul>
           </div>
@@ -589,13 +589,13 @@
         <div class="skill-group reveal">
           <h4>Cloud &amp; Infrastructure</h4>
           <div class="tag-row">
-            <span data-tip="Owned the full lifecycle of a production EKS 1.35 cluster: RBAC, security contexts, node groups, CloudNativePG, Strimzi, Keycloak, and Envoy Gateway all run on it.">AWS EKS</span>
-            <span data-tip="Administered AWS IAM Identity Center and SSO access across 50+ accounts as the org's platform admin.">IAM &amp; SSO</span>
+            <span data-tip="Own the full lifecycle of a production EKS 1.35 cluster: RBAC, security contexts, node groups, CloudNativePG, Strimzi, Keycloak, and Envoy Gateway all run on it.">AWS EKS</span>
+            <span data-tip="Administer AWS IAM Identity Center and SSO access across 50+ accounts as the org's platform admin.">IAM &amp; SSO</span>
             <span data-tip="Traced a multi-day DNS gap spanning on-prem BIND and multiple AWS-hosted Route 53 zones.">Route 53</span>
             <span data-tip="Built a centralized multi-account ECR with lifecycle policies, OIDC push roles, and a pull-through cache.">ECR</span>
             <span data-tip="Designed multi-account VPC architecture: three-tier subnets, security group policies, Transit Gateway for cross-account routing, VPC Flow Logs for traffic visibility, and endpoints for private Bedrock and OpenSearch access.">VPC</span>
             <span data-tip="Used CloudWatch Logs Insights and metrics to investigate everything from IAM issues to a security incident.">CloudWatch</span>
-            <span data-tip="Authored Terraform Enterprise modules for EKS and platform infrastructure across a multi-account AWS org.">Terraform</span>
+            <span data-tip="Author Terraform Enterprise modules for EKS and platform infrastructure across a multi-account AWS org.">Terraform</span>
             <span data-tip="Built the Lambda functions behind the Superset embedding API and the Bedrock RAG data-discovery service.">Lambda</span>
             <span data-tip="Exposed a private, VPC-only API layer for Bedrock RAG queries and Superset's Salesforce embedding.">API Gateway</span>
             <span data-tip="Configured tiered retention with Object Lock Compliance mode for MiFID II and GDPR data governance.">S3</span>
@@ -612,38 +612,38 @@
             <span data-tip="Operated legacy Ingress before leading its replacement with the Kubernetes Gateway API.">Ingress</span>
             <span data-tip="Automated recurring platform maintenance and token refreshes with Kubernetes CronJobs.">Jobs &amp; CronJobs</span>
             <span data-tip="Packaged platform tooling and ML inference services as Helm charts and custom manifests.">Helm</span>
-            <span data-tip="Operated PostgreSQL HA clusters on EKS via CloudNativePG, including PVC resizing, ESO-backed bootstrap secrets, and live failover.">CloudNativePG</span>
-            <span data-tip="Ran Kafka in KRaft mode on EKS via the Strimzi operator: topic configuration, consumer group management, and lag monitoring in Grafana.">Strimzi</span>
-            <span data-tip="Ran Keycloak in-cluster for JWT issuance and OAuth 2.0 client credentials, covering both user and service-to-service authentication.">Keycloak</span>
+            <span data-tip="Operate PostgreSQL HA clusters on EKS via CloudNativePG, including PVC resizing, ESO-backed bootstrap secrets, and live failover.">CloudNativePG</span>
+            <span data-tip="Run Kafka in KRaft mode on EKS via the Strimzi operator: topic configuration, consumer group management, and lag monitoring in Grafana.">Strimzi</span>
+            <span data-tip="Run Keycloak in-cluster for JWT issuance and OAuth 2.0 client credentials, covering both user and service-to-service authentication.">Keycloak</span>
           </div>
         </div>
         <div class="skill-group reveal">
           <h4>GitOps &amp; Delivery</h4>
           <div class="tag-row">
-            <span data-tip="Ran an App-of-Apps GitOps pattern managing 60+ applications as the platform's deployment layer.">ArgoCD</span>
+            <span data-tip="Run an App-of-Apps GitOps pattern managing 60+ applications as the platform's deployment layer.">ArgoCD</span>
             <span data-tip="Designed the root-app bootstrap pattern that recreates every child Application automatically from Git.">App-of-Apps</span>
             <span data-tip="Automated image promotion with IRSA-based ECR auth, removing manual deployment steps for app teams.">Image Updater</span>
             <span data-tip="Built OIDC-based GitHub Actions pipelines for ECR pushes, Terraform plan/apply, and Airbyte provisioning, using short-lived STS credentials for those flows. Every Terraform plan diff posts to the PR before apply.">GitHub Actions</span>
-            <span data-tip="Contributed to a production Puppet 5 codebase managing Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.">Puppet</span>
+            <span data-tip="Contribute to a production Puppet 5 codebase managing Airflow, Superset, and internal dashboard services, authoring manifests, ERB templates, and Hiera 5 configurations.">Puppet</span>
           </div>
         </div>
         <div class="skill-group reveal">
           <h4>Observability</h4>
           <div class="tag-row">
-            <span data-tip="Built and maintained the dashboards and alerting behind the platform's entire observability stack.">Grafana</span>
+            <span data-tip="Build and maintain the dashboards and alerting behind the platform's entire observability stack.">Grafana</span>
             <span data-tip="Designed a monitoring platform from scratch at Comcast, then operated it at trading-platform scale at Tradu.">Prometheus</span>
             <span data-tip="Diagnosed a Loki ingestion saturation issue caused by a workload logging at debug level under trading traffic.">Loki</span>
-            <span data-tip="Deployed the OpenTelemetry collector pipeline: receives metrics, logs, and traces and routes them to Prometheus, Loki, and Tempo. Also planning the Promtail-to-Alloy migration ahead of Promtail's end of life.">Grafana Alloy</span>
+            <span data-tip="Deployed as the OpenTelemetry collector pipeline: receives metrics, logs, and traces and routes them to Prometheus, Loki, and Tempo. Also planning the Promtail-to-Alloy migration ahead of Promtail's end of life.">Grafana Alloy</span>
             <span data-tip="Planned as the distributed tracing backend completing the observability trio alongside Prometheus and Loki, with Grafana linking log entries directly to their trace.">Tempo</span>
-            <span data-tip="Used to trace incidents from a metric anomaly back to root cause.">PromQL</span>
-            <span data-tip="Used to search and correlate logs across every namespace on the cluster.">LogQL</span>
+            <span data-tip="Used daily to trace incidents from a metric anomaly back to root cause.">PromQL</span>
+            <span data-tip="Used daily to search and correlate logs across every namespace on the cluster.">LogQL</span>
             <span data-tip="Deployed Filebeat-based centralized logging for infrastructure and pipeline observability at Comcast.">ELK Stack</span>
           </div>
         </div>
         <div class="skill-group reveal">
           <h4>Identity &amp; Security</h4>
           <div class="tag-row">
-            <span data-tip="Managed Entra ID as Terraform code: SSO, Conditional Access, and SCIM across multiple SaaS platforms.">Azure Entra ID</span>
+            <span data-tip="Manage Entra ID as Terraform code: SSO, Conditional Access, and SCIM across multiple SaaS platforms.">Azure Entra ID</span>
             <span data-tip="Rolled out SCIM provisioning so SaaS access stays in sync with the identity provider automatically.">SCIM</span>
             <span data-tip="Led internal POCs on SSO architecture, including Duo-backed authentication for Superset.">SAML SSO</span>
             <span data-tip="Designed Zero Trust access policies gated by device, location, and risk signal, not just network location.">Conditional Access</span>
@@ -776,7 +776,7 @@
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="AWS Bedrock hosts the knowledge base and, via DeepSeek R1, the inference model for this system.">AWS Bedrock</span><span data-tip="OpenSearch Serverless is the vector store the Bedrock Knowledge Base syncs into.">OpenSearch</span><span data-tip="DeepSeek R1 was evaluated against the default model and won out for this specific knowledge domain.">DeepSeek R1</span></div>
           <h3>Shipping a production RAG knowledge base: real constraints, real fixes</h3>
-          <p>Built the ingestion pipeline for an internal Ops knowledge assistant: pulling Knowledge articles via SOQL, converting them to markdown with companion metadata JSON, and syncing into a Bedrock Knowledge Base (OpenSearch Serverless vectors) queried through a private Lambda and API Gateway.</p>
+          <p>Built the ingestion pipeline for an internal Ops knowledge assistant: pulling Salesforce Knowledge articles via SOQL, converting them to markdown with companion metadata JSON, and syncing into a Bedrock Knowledge Base (OpenSearch Serverless vectors, 600-token chunks with 12% overlap) queried through a private Lambda and API Gateway. Along the way: Bedrock's metadata has reserved keywords, so <code>id</code> and <code>source</code> both silently broke sync until renamed; metadata files cap out at 5 attributes, forcing hard choices about what to keep; and a model hallucination, where the LLM wrongly assumed deposits were available wherever withdrawals were mentioned, was fixed with an explicit prompt constraint rather than more data.</p>
         </article>
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="A production Puppet 5 codebase provisioning core data platform services.">Puppet</span><span data-tip="Hiera 5 provides the environment-specific data layer for the Puppet manifests.">Hiera</span><span data-tip="ERB templates generate config files from Puppet-managed data.">ERB</span></div>
@@ -786,7 +786,7 @@
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="Transit Gateway is the hub-and-spoke routing core connecting the trading cluster to the network account and on-premises systems.">Transit Gateway</span><span data-tip="PrivateLink keeps Bedrock and OpenSearch traffic inside the AWS network.">PrivateLink</span><span data-tip="AWS Network Firewall provides centralized traffic inspection across the multi-account network.">Network Firewall</span></div>
           <h3>Designing and operating a multi-account AWS network</h3>
-          <p>Manage the AWS-side network architecture for a multi-account trading platform: Transit Gateway as the hub connecting the trading cluster's VPC to the network account and on-premises systems, VPC endpoints for private Bedrock and OpenSearch access, security groups and NACLs scoped per workload tier, TGW routing and VPC attachments that connect to it and VPC Flow Logs plus AWS Network Firewall for traffic visibility and compliance, all managed in Terraform.</p>
+          <p>Manage the AWS-side network architecture for a multi-account trading platform: Transit Gateway as the hub connecting the trading cluster's VPC to the network account and on-premises systems, VPC endpoints for private Bedrock and OpenSearch access, security groups and NACLs scoped per workload tier, and VPC Flow Logs plus AWS Network Firewall for traffic visibility and compliance, all managed in Terraform. The physical Direct Connect and VPN termination sits with the network infrastructure team; my side of the boundary is the TGW routing and VPC attachments that connect to it.</p>
         </article>
         <article class="project-card reveal">
           <div class="project-tags"><span data-tip="GitHub Actions runs the CI/CD pipelines this security review covered.">GitHub Actions</span><span data-tip="Trivy scans container images for known vulnerabilities as part of the pipeline.">Trivy</span><span data-tip="SpotBugs is the static analysis tool catching bug patterns in the Java codebase.">SpotBugs</span></div>
@@ -849,8 +849,8 @@
       <span class="traffic-label">SITE TRAFFIC</span>
       <span class="traffic-total-text"><strong id="trafficTotal">...</strong> total visits</span>
     </div>
-    <svg id="trafficChart" class="traffic-chart" viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="Visits over the last 14 days"></svg>
-    <p class="traffic-caption">Last 14 days · counted client-side, no cookies</p>
+    <svg id="trafficChart" class="traffic-chart" viewBox="0 0 700 160" preserveAspectRatio="none" aria-label="Visits broken down by day of the week"></svg>
+    <p class="traffic-caption">Visits by day of week · counted client-side, no cookies</p>
     <p class="traffic-error-msg">Traffic data isn't loading right now. The counting service may be unreachable.</p>
   </div>
 </section>
@@ -881,7 +881,7 @@
         <div class="bb-block bb-b4"></div>
       </div>
     </div>
-    <p class="bb-caption">Build one block at a time.</p>
+    <p class="bb-caption">Built one block at a time.</p>
     <p class="bb-tagline">A building block of development.</p>
   </div>
 </section>
@@ -956,21 +956,19 @@
     tipEls.forEach(function (o) { o.classList.remove('tip-active'); });
   });
 
-  // Site traffic widget: CounterAPI v1, keyless and public by design, so nothing secret is ever exposed here
+  // Site traffic widget: CounterAPI v2 (keyless public counter, so nothing secret is ever exposed here).
+  // On load it counts one visit (/up) and reads the weekday breakdown (/stats) for the chart.
   (function () {
-    var NAMESPACE = 'shannus-portfolio';
-    var API = 'https://api.counterapi.dev/v1/' + NAMESPACE + '/';
-    var DAYS = 14;
+    var WORKSPACE = 'shannus-portfolio';
+    var COUNTER = 'views';
+    var BASE = 'https://api.counterapi.dev/v2/' + WORKSPACE + '/' + COUNTER;
     var widget = document.getElementById('trafficWidget');
     var chartEl = document.getElementById('trafficChart');
     var totalEl = document.getElementById('trafficTotal');
     if (!widget || !chartEl) return;
 
-    function dateKey(d) {
-      return d.toISOString().slice(0, 10);
-    }
-    // Returns the parsed JSON on success, or null on ANY failure (network, CORS, bad status, bad body).
-    // null is treated as "unknown", never silently coerced into a real 0, so a dead API can't masquerade as real zero-visit data.
+    // Returns parsed JSON on success, or null on ANY failure (network, CORS, bad status, bad body).
+    // null means "unknown" and is never coerced into a real 0, so a dead API can't fake real data.
     function safeFetchJSON(url) {
       return fetch(url).then(function (r) {
         if (!r.ok) return null;
@@ -978,49 +976,57 @@
       }).catch(function () { return null; });
     }
 
-    var today = new Date();
-    var labels = [];
-    var dayPromises = [];
-    for (var i = DAYS - 1; i >= 0; i--) {
-      var d = new Date(today);
-      d.setDate(d.getDate() - i);
-      var key = dateKey(d);
-      labels.push(i === 0 ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' }));
-      dayPromises.push(i === 0 ? safeFetchJSON(API + 'visits-' + key + '/up') : safeFetchJSON(API + 'visits-' + key));
-    }
-    var totalPromise = safeFetchJSON(API + 'visits-total/up');
+    // Count this visit (also returns the fresh total), then pull stats for the weekday chart.
+    Promise.all([
+      safeFetchJSON(BASE + '/up'),
+      safeFetchJSON(BASE + '/stats')
+    ]).then(function (results) {
+      var upRes = results[0];
+      var statsRes = results[1];
 
-    Promise.all(dayPromises.concat([totalPromise])).then(function (results) {
-      var dayResults = results.slice(0, DAYS);
-      var totalResult = results[DAYS];
-      var failedCount = dayResults.filter(function (r) { return r === null; }).length;
-
-      // If most/all day requests failed, the service is unreachable (down, blocked, CORS misconfigured, etc.)
-      // Show the honest "unavailable" state rather than a fabricated all-zero chart.
-      if (failedCount >= DAYS - 1) {
+      // Both failed -> the service is unreachable. Show the honest "unavailable" state.
+      if (!upRes && !statsRes) {
         widget.classList.add('traffic-error');
         return;
       }
 
-      var counts = dayResults.map(function (r) { return (r && typeof r.count === 'number') ? r.count : 0; });
-      var max = Math.max.apply(null, counts.concat([1]));
+      // Total visits: prefer the up_count from whichever call returned it.
+      var total = null;
+      if (upRes && upRes.data && typeof upRes.data.up_count === 'number') {
+        total = upRes.data.up_count;
+      } else if (statsRes && statsRes.data && typeof statsRes.data.up_count === 'number') {
+        total = statsRes.data.up_count;
+      }
+      if (totalEl) totalEl.textContent = total !== null ? total.toLocaleString() : '...';
 
-      if (totalEl) {
-        var totalCount = (totalResult && typeof totalResult.count === 'number') ? totalResult.count : null;
-        totalEl.textContent = totalCount !== null ? totalCount.toLocaleString() : '...';
+      // Weekday breakdown from stats (Mon..Sun). If stats is missing, hide the chart but keep the total.
+      var weekdays = statsRes && statsRes.data && statsRes.data.stats && statsRes.data.stats.temporal
+        ? statsRes.data.stats.temporal.weekdays : null;
+      if (!weekdays) {
+        chartEl.style.display = 'none';
+        return;
       }
 
-      var w = 700, h = 160, padBottom = 22, padTop = 8, barGap = 6;
-      var barW = (w - barGap * (DAYS - 1)) / DAYS;
+      var order = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+      var shortLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      var todayName = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][new Date().getDay()];
+      var counts = order.map(function (d) {
+        return (weekdays[d] && typeof weekdays[d].up === 'number') ? weekdays[d].up : 0;
+      });
+      var max = Math.max.apply(null, counts.concat([1]));
+
+      var w = 700, h = 160, padBottom = 22, padTop = 8, barGap = 10;
+      var n = order.length;
+      var barW = (w - barGap * (n - 1)) / n;
       var parts = [];
-      for (var j = 0; j < DAYS; j++) {
+      for (var j = 0; j < n; j++) {
         var val = counts[j];
         var barH = Math.max((val / max) * (h - padBottom - padTop), val > 0 ? 4 : 2);
         var x = j * (barW + barGap);
         var y = h - padBottom - barH;
-        var isToday = j === DAYS - 1;
-        parts.push('<rect class="traffic-bar' + (isToday ? ' traffic-bar-today' : '') + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + barH.toFixed(1) + '" rx="3"><title>' + labels[j] + ': ' + val + ' visit' + (val === 1 ? '' : 's') + '</title></rect>');
-        parts.push('<text class="traffic-bar-label" x="' + (x + barW / 2).toFixed(1) + '" y="' + (h - 6) + '" text-anchor="middle">' + labels[j] + '</text>');
+        var isToday = order[j] === todayName;
+        parts.push('<rect class="traffic-bar' + (isToday ? ' traffic-bar-today' : '') + '" x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + barH.toFixed(1) + '" rx="3"><title>' + shortLabels[j] + ': ' + val + ' visit' + (val === 1 ? '' : 's') + '</title></rect>');
+        parts.push('<text class="traffic-bar-label" x="' + (x + barW / 2).toFixed(1) + '" y="' + (h - 6) + '" text-anchor="middle">' + shortLabels[j] + '</text>');
       }
       chartEl.innerHTML = parts.join('');
     }).catch(function () {
